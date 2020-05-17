@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "serve": "^11.3.0"
   },
@@ -15,7 +16,7 @@
     "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev" : "react-scripts start",
+    "dev": "react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
