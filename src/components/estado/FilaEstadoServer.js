@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import requester from '../comunications/Requester';
+import requester from '../../comunications/Requester';
 
 export class FilaEstadoServer extends Component{
     constructor(props){
@@ -15,6 +15,14 @@ export class FilaEstadoServer extends Component{
         this.getEstado(this.props.url);
     }
 
+    handleApiResponse(response) {
+        this.setState({estado: response['ping'] === 200})
+    }
+
+    getEstado(url) {
+        requester.getPing(url, this.handleApiResponse)
+    }
+
     render(){
         return(
             <tr>
@@ -23,13 +31,5 @@ export class FilaEstadoServer extends Component{
                 <td>{this.props.url}</td>
             </tr>
         )
-    }
-
-    handleApiResponse(response) {
-        this.setState({estado: response['ping'] === 200})
-    }
-
-    getEstado(url) {
-        requester.getPing(url, this.handleApiResponse)
     }
 }
