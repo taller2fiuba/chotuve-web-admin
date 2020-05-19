@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import requester from '../comunications/Requester'
-
-// TODO: Tratar de mover
-const servers = {
-    authserver: 'http://localhost:28080',
-    appserver: 'http://localhost:28080',
-}
+import requester from '../comunications/Requester';
 
 export class FilaEstadoServer extends Component{
     constructor(props){
@@ -18,15 +12,15 @@ export class FilaEstadoServer extends Component{
     }
 
     componentDidMount() {
-        this.getEstado(this.props.server);
+        this.getEstado(this.props.url);
     }
 
     render(){
-        const nombreServidor = this.props.server;
         return(
             <tr>
-                <td>{nombreServidor}</td>
+                <td>{this.props.nombre}</td>
                 <td>{this.state.estado ? 'Ok' : 'Bad'}</td>
+                <td>{this.props.url}</td>
             </tr>
         )
     }
@@ -35,7 +29,7 @@ export class FilaEstadoServer extends Component{
         this.setState({estado: response['ping'] === 200})
     }
 
-    getEstado(nombreServidor) {
-        requester.getPing(servers[nombreServidor], this.handleApiResponse)
+    getEstado(url) {
+        requester.getPing(url, this.handleApiResponse)
     }
 }
