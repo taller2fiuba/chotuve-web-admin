@@ -1,7 +1,7 @@
-import axios from 'axios';
+//import axios from 'axios';
 
 // TODO: Mover a variable de ambiente
-const AUTH_SERVER = 'https://chotuve-auth-server-g4.herokuapp.com';
+//const AUTH_SERVER = 'https://chotuve-auth-server-g4.herokuapp.com';
 
 class AuthServerService{
 
