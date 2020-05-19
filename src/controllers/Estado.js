@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {FilaEstadoServer} from '../components/FilaEstadoServer';
 import Table from 'react-bootstrap/Table';
-import authServerService from '../comunications/AutServerService';
+import authServerService from '../comunications/AuthServerService';
 
 
 // TODO: Mover a variable de ambiente
