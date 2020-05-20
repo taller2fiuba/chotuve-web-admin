@@ -10,7 +10,6 @@ class Requester {
                 console.log(error);
                 callback({ping:error.status});
             })
-        //callback({ping:200})
     }
 }
 
