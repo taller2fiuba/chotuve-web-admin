@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import requester from '../../comunications/Requester';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export class FilaEstadoServer extends Component{
     constructor(props){
@@ -27,7 +29,12 @@ export class FilaEstadoServer extends Component{
         return(
             <tr>
                 <td>{this.props.nombre}</td>
-                <td>{this.state.estado ? 'Ok' : 'Bad'}</td>
+                <td>{
+                    this.state.estado ? 
+                    <FontAwesomeIcon icon="check" size="2x" style={{color: 'green'}} /> :
+                    <FontAwesomeIcon icon="times" size="2x" style={{color: 'red'}}/>
+                    }
+                </td>
                 <td>{this.props.url}</td>
             </tr>
         )
