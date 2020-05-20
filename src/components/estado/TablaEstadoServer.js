@@ -45,18 +45,20 @@ export class TablaEstadoServer extends Component{
 
     render(){
         return(
-            <Table  striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Servidor</th>
-                        <th>Estado</th>
-                        <th>Url</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderEstadoServers()}
-                </tbody>
-            </Table>
+            <div className="row col-8">
+                <Table striped bordered hover responsive className="text-center">
+                    <thead>
+                        <tr>
+                            <th>Servidor</th>
+                            <th>Estado</th>
+                            <th>Url</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderEstadoServers()}
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }
