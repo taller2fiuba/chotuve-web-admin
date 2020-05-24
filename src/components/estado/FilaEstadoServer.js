@@ -35,9 +35,9 @@ export default class FilaEstadoServer extends Component {
 
     if (!cargando) {
       valorEstado = estado ? (
-        <FontAwesomeIcon icon="check" size="1.5x" style={{ color: "green" }} />
+        <FontAwesomeIcon icon="check" size="2x" style={{ color: "green" }} />
       ) : (
-        <FontAwesomeIcon icon="times" size="1.5x" style={{ color: "red" }} />
+        <FontAwesomeIcon icon="times" size="2x" style={{ color: "red" }} />
       );
     }
 
