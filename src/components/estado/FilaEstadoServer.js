@@ -8,6 +8,7 @@ export default class FilaEstadoServer extends Component {
     super(props);
     this.state = {
       estado: false,
+      cargando: true,
     };
 
     this.handleApiResponse = this.handleApiResponse.bind(this);
@@ -22,24 +23,24 @@ export default class FilaEstadoServer extends Component {
   }
 
   handleApiResponse(response) {
-    this.setState({ estado: response.ping === 200 });
+    this.setState({ estado: response.ping === 200, cargando: false });
   }
 
   render() {
+    const { estado, cargando } = this.state;
+    let valorEstado = "cargando";
+    if (!cargando) {
+      valorEstado = estado ? (
+        <FontAwesomeIcon icon="check" size="2x" style={{ color: "green" }} />
+      ) : (
+        <FontAwesomeIcon icon="times" size="2x" style={{ color: "red" }} />
+      );
+    }
+
     return (
       <tr>
         <td>{this.props.nombre}</td>
-        <td>
-          {this.state.estado ? (
-            <FontAwesomeIcon
-              icon="check"
-              size="2x"
-              style={{ color: "green" }}
-            />
-          ) : (
-            <FontAwesomeIcon icon="times" size="2x" style={{ color: "red" }} />
-          )}
-        </td>
+        <td>{valorEstado}</td>
         <td>{this.props.url}</td>
       </tr>
     );
