@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import BeatLoader from "react-spinners/BeatLoader";
 import Requester from "../../comunications/Requester";
 
 export default class FilaEstadoServer extends Component {
@@ -28,12 +29,15 @@ export default class FilaEstadoServer extends Component {
 
   render() {
     const { estado, cargando } = this.state;
-    let valorEstado = "cargando";
+    let valorEstado = (
+      <BeatLoader size={10} margin={2} color="#298FDA" loading={cargando} />
+    );
+
     if (!cargando) {
       valorEstado = estado ? (
-        <FontAwesomeIcon icon="check" size="2x" style={{ color: "green" }} />
+        <FontAwesomeIcon icon="check" size="1.5x" style={{ color: "green" }} />
       ) : (
-        <FontAwesomeIcon icon="times" size="2x" style={{ color: "red" }} />
+        <FontAwesomeIcon icon="times" size="1.5x" style={{ color: "red" }} />
       );
     }
 
