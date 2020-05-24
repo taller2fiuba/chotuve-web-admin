@@ -1,64 +1,58 @@
 import React, { Component } from "react";
-import Table from 'react-bootstrap/Table';
-import {FilaEstadoServer} from './FilaEstadoServer';
-import authServerService from '../../comunications/AuthServerService';
+import Table from "react-bootstrap/Table";
+import FilaEstadoServer from "./FilaEstadoServer";
+import authServerService from "../../comunications/AuthServerService";
 
 // TODO: Mover a variable de ambiente
-const AUTH_SERVER = 'https://chotuve-auth-server-g4.herokuapp.com';
+const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
 
-export class TablaEstadoServer extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            servers : [{nombre:"auth-server", url:AUTH_SERVER}],
-        };
+export default class TablaEstadoServer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      servers: [{ nombre: "auth-server", url: AUTH_SERVER }],
+    };
 
-        this.handleApiResponse = this.handleApiResponse.bind(this);
-    }
-    
-    componentDidMount() {   
-        authServerService.getAppServers(this.handleApiResponse, (error) => console.log(error));
-    }
+    this.handleApiResponse = this.handleApiResponse.bind(this);
+  }
 
-    handleApiResponse(response) {
-        const servers = this.state.servers;
-        this.setState({
-            servers: servers.concat(response),
-        });
-    }
+  componentDidMount() {
+    authServerService.getAppServers(this.handleApiResponse, (error) =>
+      console.log(error)
+    );
+  }
 
-    renderEstadoServers = () =>{
-        const servers = this.state.servers;
+  handleApiResponse(response) {
+    const { servers } = this.state;
+    this.setState({
+      servers: servers.concat(response),
+    });
+  }
 
-        return servers.map(server => {
-            const {nombre, url} = server;
+  renderEstadoServers() {
+    const { servers } = this.state;
 
-            return(
-                <FilaEstadoServer
-                    key={nombre}
-                    nombre={nombre}
-                    url={url}
-                />
-            )
-        })
-    }
+    return servers.map((server) => {
+      const { nombre, url } = server;
 
-    render(){
-        return(
-            <div className="row col-8">
-                <Table striped bordered hover responsive className="text-center">
-                    <thead>
-                        <tr>
-                            <th>Servidor</th>
-                            <th>Estado</th>
-                            <th>Url</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderEstadoServers()}
-                    </tbody>
-                </Table>
-            </div>
-        )
-    }
+      return <FilaEstadoServer key={nombre} nombre={nombre} url={url} />;
+    });
+  }
+
+  render() {
+    return (
+      <div className="row col-8">
+        <Table striped bordered hover responsive className="text-center">
+          <thead>
+            <tr>
+              <th>Servidor</th>
+              <th>Estado</th>
+              <th>Url</th>
+            </tr>
+          </thead>
+          <tbody>{this.renderEstadoServers()}</tbody>
+        </Table>
+      </div>
+    );
+  }
 }
