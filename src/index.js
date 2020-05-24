@@ -1,16 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './routes/Routes';
-import * as serviceWorker from './serviceWorker';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './fontawesome';
+/* eslint-disable no-undef */
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./routes/Routes";
+import * as serviceWorker from "./serviceWorker";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./fontawesome";
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
