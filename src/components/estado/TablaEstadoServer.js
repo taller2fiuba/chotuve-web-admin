@@ -5,7 +5,7 @@ import authServerService from "../../comunications/AuthServerService";
 
 // TODO: Mover a variable de ambiente
 const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
-const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com/";
+const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
 
 export default class TablaEstadoServer extends Component {
   constructor(props) {
