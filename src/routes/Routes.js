@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Estado from "../controllers/Estado";
+import Estado from "../estado/Estado";
 import SideBarResponsive from "../components/SideBarResponsive";
 
 export default () => {

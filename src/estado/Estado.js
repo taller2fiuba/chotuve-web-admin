@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Typography } from "@material-ui/core";
-import TablaEstadoServer from "../components/estado/TablaEstadoServer";
+import TablaEstadoServer from "./TablaEstadoServer";
 
 export default () => {
   return (

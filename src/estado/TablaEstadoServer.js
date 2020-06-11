@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import FilaEstadoServer from "./FilaEstadoServer";
-import authServerService from "../../comunications/AuthServerService";
+import authServerService from "../comunications/AuthServerService";
 
-// TODO: Mover a variable de ambiente
 const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
 const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
 
