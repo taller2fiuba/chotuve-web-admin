@@ -1,11 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Estado from "../controllers/Estado";
+import SideBarResponsive from "../components/SideBarResponsive";
 
 export default () => {
   return (
     <Router key="router">
-      <Route exact path="/" component={Estado} />
+      <div style={{ display: "flex" }}>
+        <SideBarResponsive />
+        <Switch>
+          <Route exact path="/" />
+          <Route exact path="/estado">
+            <Estado />
+          </Route>
+          <Route exact path="/about" />
+        </Switch>
+      </div>
     </Router>
   );
 };
