@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Estado from "../estado/Estado";
 import SideBarResponsive from "../components/SideBarResponsive";
+import PantallaUsuarios from "../usuarios/PantallaUsuarios";
 
 export default () => {
   return (
-    <Router key="router">
+    <BrowserRouter key="router">
       <div style={{ display: "flex" }}>
         <SideBarResponsive />
         <Switch>
@@ -13,9 +14,12 @@ export default () => {
           <Route exact path="/estado">
             <Estado />
           </Route>
-          <Route exact path="/about" />
+          <Route exact path="/usuario">
+            <PantallaUsuarios />
+          </Route>
+          <Redirect to="/" />
         </Switch>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };

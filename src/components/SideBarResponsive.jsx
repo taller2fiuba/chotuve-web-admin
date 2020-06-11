@@ -84,7 +84,11 @@ const SideBarResponsive = (props) => {
           </ListItemIcon>
           <ListItemText primary="Estado" />
         </MenuItem>
-        <MenuItem component={Link} to="/about" selected={pathname === "/about"}>
+        <MenuItem
+          component={Link}
+          to="/usuario"
+          selected={pathname === "/usuario"}
+        >
           <ListItemIcon>
             <FontAwesomeIcon
               icon="facebook"
@@ -92,7 +96,7 @@ const SideBarResponsive = (props) => {
               style={{ color: "red" }}
             />
           </ListItemIcon>
-          <ListItemText primary="About" />
+          <ListItemText primary="Usuarios" />
         </MenuItem>
       </MenuList>
     </div>
@@ -101,6 +105,7 @@ const SideBarResponsive = (props) => {
   const nombreContenido = (path) => {
     if (path === "/") return "Home";
     if (path === "/about") return "About";
+    if (path === "/usuario") return "Usuarios";
     return "Estado";
   };
 
