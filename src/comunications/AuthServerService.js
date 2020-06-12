@@ -1,4 +1,6 @@
-// import axios from 'axios';
+import axios from "axios";
+
+const AUTH_SERVER_API = "http://localhost:26080";
 
 // eslint-disable-next-line no-unused-vars
 const getAppServers = (callback, errorHandler) => {
@@ -12,4 +14,9 @@ const getAppServers = (callback, errorHandler) => {
   ]);
 };
 
-export default { getAppServers };
+const obtenerUsuarios = async () => {
+  const response = await axios.get(`${AUTH_SERVER_API}/usuario`);
+  return response.data;
+};
+
+export { getAppServers, obtenerUsuarios };

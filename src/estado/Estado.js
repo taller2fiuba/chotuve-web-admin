@@ -6,11 +6,9 @@ export default () => {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Estado
+        Estados
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        <TablaEstadoServer />
-      </Typography>
+      <TablaEstadoServer />
     </Container>
   );
 };

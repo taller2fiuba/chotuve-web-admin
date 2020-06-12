@@ -90,11 +90,7 @@ const SideBarResponsive = (props) => {
           selected={pathname === "/usuario"}
         >
           <ListItemIcon>
-            <FontAwesomeIcon
-              icon="facebook"
-              size="2x"
-              style={{ color: "red" }}
-            />
+            <FontAwesomeIcon icon="user" />
           </ListItemIcon>
           <ListItemText primary="Usuarios" />
         </MenuItem>
