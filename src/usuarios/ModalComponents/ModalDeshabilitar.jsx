@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 const ModalDeshabilitar = (props) => {
-  const { habilitado, deleteTrainer } = props;
+  const { habilitado, cambiarEstadoUsuario } = props;
   // Component state
   const [show, setShow] = useState(false);
 
@@ -14,7 +14,7 @@ const ModalDeshabilitar = (props) => {
   const handleShow = () => setShow(true);
 
   const saveAndClose = () => {
-    deleteTrainer();
+    cambiarEstadoUsuario();
     setShow(false);
   };
 
@@ -52,7 +52,7 @@ const ModalDeshabilitar = (props) => {
 };
 
 ModalDeshabilitar.propTypes = {
-  deleteTrainer: PropTypes.func.isRequired,
+  cambiarEstadoUsuario: PropTypes.func.isRequired,
   habilitado: PropTypes.bool.isRequired,
 };
 

@@ -43,7 +43,7 @@ const PantallaUsuarios = () => {
             <td>{usuario.id % 2 === 0 ? "TRUE" : "FALSE"}</td>
             <td>
               <ModalDeshabilitarUsuario
-                deleteTrainer={() =>
+                cambiarEstadoUsuario={() =>
                   // eslint-disable-next-line no-use-before-define
                   cambiarEstadoUsuario(usuario.id, usuario.id % 2 === 0)
                 }
