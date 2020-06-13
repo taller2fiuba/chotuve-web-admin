@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 
 import ModalEditarUsuario from "./ModalComponents/ModalEditar";
+import ModalDeshabilitarUsuario from "./ModalComponents/ModalDeshabilitar";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 
@@ -39,7 +40,15 @@ const PantallaUsuarios = () => {
             <td>{usuario.apellido}</td>
             <td>{usuario.email}</td>
             <td>{usuario.telefono}</td>
+            <td>{usuario.id % 2 === 0 ? "TRUE" : "FALSE"}</td>
             <td>
+              <ModalDeshabilitarUsuario
+                deleteTrainer={() =>
+                  // eslint-disable-next-line no-use-before-define
+                  cambiarEstadoUsuario(usuario.id, usuario.id % 2 === 0)
+                }
+                habilitado={usuario.id % 2 === 0}
+              />
               {usuarios && (
                 <ModalEditarUsuario
                   usuarioId={usuario.id}
@@ -54,8 +63,12 @@ const PantallaUsuarios = () => {
     );
   };
 
-  const editarUsuario = (usuarioId, usuario) => {
+  const cambiarEstadoUsuario = (usuarioId, estadoViejo) => {
     console.log(usuarioId);
+    console.log(estadoViejo);
+  };
+
+  const editarUsuario = (usuarioId, usuario) => {
     console.log(usuario);
   };
 
@@ -66,6 +79,7 @@ const PantallaUsuarios = () => {
       "Apellido",
       "Email",
       "Teléfono",
+      "Habilitado",
       "Acciones",
     ];
     return (

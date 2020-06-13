@@ -26,6 +26,7 @@ const obtenerUsuario = (usuarioId) => {
     apellido: "Justo",
     email: "ed@ed.com",
     telefono: "445567797",
+    habilitado: true,
   };
 };
 
