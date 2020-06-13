@@ -19,4 +19,14 @@ const obtenerUsuarios = async () => {
   return response.data;
 };
 
-export { getAppServers, obtenerUsuarios };
+const obtenerUsuario = (usuarioId) => {
+  return {
+    id: usuarioId,
+    nombre: "Edson",
+    apellido: "Justo",
+    email: "ed@ed.com",
+    telefono: "445567797",
+  };
+};
+
+export { getAppServers, obtenerUsuarios, obtenerUsuario };

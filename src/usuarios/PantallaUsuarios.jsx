@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography } from "@material-ui/core";
+
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
+
+import ModalEditarUsuario from "./ModalComponents/ModalEditar";
+
 import * as AuthServerService from "../comunications/AuthServerService";
 
 const PantallaUsuarios = () => {
@@ -35,11 +39,24 @@ const PantallaUsuarios = () => {
             <td>{usuario.apellido}</td>
             <td>{usuario.email}</td>
             <td>{usuario.telefono}</td>
-            <td />
+            <td>
+              {usuarios && (
+                <ModalEditarUsuario
+                  usuarioId={usuario.id}
+                  // eslint-disable-next-line no-use-before-define
+                  onSubmit={editarUsuario}
+                />
+              )}
+            </td>
           </tr>
         ))}
       </tbody>
     );
+  };
+
+  const editarUsuario = (usuarioId, usuario) => {
+    console.log(usuarioId);
+    console.log(usuario);
   };
 
   const renderTableHeaders = () => {
