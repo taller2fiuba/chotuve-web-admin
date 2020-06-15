@@ -1,53 +1,65 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const ModalDeshabilitar = (props) => {
   const { habilitado, cambiarEstadoUsuario } = props;
-  // Component state
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const [open, setOpen] = useState(false);
 
-  const handleShow = () => setShow(true);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const saveAndClose = () => {
     cambiarEstadoUsuario();
-    setShow(false);
+    handleClose();
   };
 
   const accion = habilitado ? "Deshabilitar" : "Habilitar";
 
   return (
-    <>
+    <div>
       <Button
-        variant={habilitado ? "success" : "danger"}
-        className="mr-2"
-        onClick={handleShow}
+        variant="contained"
+        color={habilitado ? "secondary" : "primary"}
+        onClick={handleClickOpen}
       >
         {accion}
       </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>{accion}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          ¿Está seguro/a de {habilitado ? "deshabilitar" : "habilitar"} el
-          usuario?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{accion}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Está seguro/a de {habilitado ? "deshabilitar" : "habilitar"} el
+            usuario?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>
-          <Button variant="primary" onClick={saveAndClose}>
+          <Button onClick={saveAndClose} color="primary">
             Aceptar
           </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 };
 
