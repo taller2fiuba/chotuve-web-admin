@@ -3,6 +3,8 @@ import { Container, Typography } from "@material-ui/core";
 
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
 
 import ModalEditarUsuario from "./ModalComponents/ModalEditar";
 import ModalDeshabilitarUsuario from "./ModalComponents/ModalDeshabilitar";
@@ -40,7 +42,13 @@ const PantallaUsuarios = () => {
             <td>{usuario.apellido}</td>
             <td>{usuario.email}</td>
             <td>{usuario.telefono}</td>
-            <td>{usuario.id % 2 === 0 ? "TRUE" : "FALSE"}</td>
+            <td>
+              {usuario.id % 2 === 0 ? (
+                <DoneIcon fontSize="large" />
+              ) : (
+                <ClearIcon fontSize="large" />
+              )}
+            </td>
             <td>
               <ModalDeshabilitarUsuario
                 cambiarEstadoUsuario={() =>

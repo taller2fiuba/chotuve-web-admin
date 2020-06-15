@@ -7,6 +7,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import EditIcon from "@material-ui/icons/Edit";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
 import * as AuthServerService from "../../comunications/AuthServerService";
 
@@ -48,10 +51,12 @@ const ModalEditarUsuario = (props) => {
   };
 
   return (
-    <div>
-      <Button variant="contained" color="default" onClick={handleClickOpen}>
-        Editar
-      </Button>
+    <>
+      <Tooltip title="Editar">
+        <IconButton onClickCapture={handleClickOpen}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -105,7 +110,7 @@ const ModalEditarUsuario = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

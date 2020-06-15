@@ -7,6 +7,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import BlockSharpIcon from "@material-ui/icons/BlockSharp";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import { green } from "@material-ui/core/colors";
 
 const ModalDeshabilitar = (props) => {
   const { habilitado, cambiarEstadoUsuario } = props;
@@ -29,14 +34,16 @@ const ModalDeshabilitar = (props) => {
   const accion = habilitado ? "Deshabilitar" : "Habilitar";
 
   return (
-    <div>
-      <Button
-        variant="contained"
-        color={habilitado ? "secondary" : "primary"}
-        onClick={handleClickOpen}
-      >
-        {accion}
-      </Button>
+    <>
+      <Tooltip title={accion}>
+        <IconButton onClickCapture={handleClickOpen}>
+          {habilitado ? (
+            <BlockSharpIcon color="secondary" />
+          ) : (
+            <VerifiedUserIcon style={{ color: green[500] }} />
+          )}
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -59,7 +66,7 @@ const ModalDeshabilitar = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 
