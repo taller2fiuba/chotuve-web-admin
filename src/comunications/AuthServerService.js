@@ -30,4 +30,23 @@ const obtenerUsuario = (usuarioId) => {
   };
 };
 
-export { getAppServers, obtenerUsuarios, obtenerUsuario };
+const editarUsuario = (usuarioId, usuario) => {
+  console.log(usuario);
+  console.log(usuarioId);
+  // axios.put(`${AUTH_SERVER_API}/usuario`, usuario);
+};
+
+const cambiarEstadoUsuario = (usuarioId, nuevoEstado) => {
+  console.log(usuarioId);
+  console.log(nuevoEstado);
+  const data = { habilitado: nuevoEstado };
+  editarUsuario(usuarioId, data);
+};
+
+export {
+  getAppServers,
+  obtenerUsuarios,
+  obtenerUsuario,
+  editarUsuario,
+  cambiarEstadoUsuario,
+};

@@ -68,7 +68,7 @@ const ModalEditarUsuario = (props) => {
             <TextField
               autoFocus
               margin="dense"
-              id="nombre"
+              id={usuario.nombre}
               label="Nombre"
               type="text"
               name="nombre"
@@ -80,7 +80,7 @@ const ModalEditarUsuario = (props) => {
             <TextField
               autoFocus
               margin="dense"
-              id="nombre"
+              id={usuario.apellido}
               label="Apellido"
               type="text"
               name="apellido"
@@ -92,7 +92,7 @@ const ModalEditarUsuario = (props) => {
             <TextField
               autoFocus
               margin="dense"
-              id="nombre"
+              id={usuario.telefono}
               label="Teléfono"
               type="text"
               name="telefono"

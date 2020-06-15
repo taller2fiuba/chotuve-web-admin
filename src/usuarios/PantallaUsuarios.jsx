@@ -66,12 +66,11 @@ const PantallaUsuarios = () => {
   };
 
   const editarUsuario = (usuarioId, usuario) => {
-    console.log(usuario);
+    AuthServerService.editarUsuario(usuarioId, usuario);
   };
 
   const cambiarEstadoUsuario = (usuarioId, estadoViejo) => {
-    console.log(usuarioId);
-    console.log(estadoViejo);
+    AuthServerService.cambiarEstadoUsuario(usuarioId, !estadoViejo);
   };
 
   const renderTableHeaders = () => {
@@ -143,7 +142,7 @@ const PantallaUsuarios = () => {
       <br />
       <TableContainer component={Paper}>
         {usuarios && (
-          <Table className={classes.table} aria-label="customized table">
+          <Table className={classes.table}>
             {renderTableHeaders()}
             {renderTableBody()}
           </Table>
