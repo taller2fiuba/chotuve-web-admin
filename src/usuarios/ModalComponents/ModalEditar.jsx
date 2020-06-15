@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 import * as AuthServerService from "../../comunications/AuthServerService";
 
@@ -11,28 +14,26 @@ const ModalEditarUsuario = (props) => {
   // props
   const { onSubmit, usuarioId } = props;
   // Component state
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [usuario, setUsuario] = useState({
     nombre: "",
     apellido: "",
     telefono: "",
   });
 
+  const handleClickOpen = () => {
+    // eslint-disable-next-line no-use-before-define
+    if (usuarioId) obtenerUsuario(usuarioId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const obtenerUsuario = () => {
     const response = AuthServerService.obtenerUsuario(usuarioId);
     setUsuario(response);
-  };
-
-  const handleShow = () => {
-    if (usuarioId) obtenerUsuario(usuarioId);
-    setIsOpen(true);
-  };
-
-  const handleClose = () => setIsOpen(false);
-
-  const saveAndClose = () => {
-    onSubmit(usuarioId, usuario);
-    setIsOpen(false);
   };
 
   const handleChange = (e) => {
@@ -41,56 +42,70 @@ const ModalEditarUsuario = (props) => {
     setUsuario((usuario) => ({ ...usuario, [name]: value }));
   };
 
+  const saveAndClose = () => {
+    onSubmit(usuarioId, usuario);
+    setOpen(false);
+  };
+
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
+    <div>
+      <Button variant="contained" color="default" onClick={handleClickOpen}>
         Editar
       </Button>
-      <Modal show={isOpen} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>Editar Usuario</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="nameId">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="nombre"
-                onChange={handleChange}
-                value={usuario.nombre}
-              />
-            </Form.Group>
-            <Form.Group controlId="apellidoId">
-              <Form.Label>Apellido</Form.Label>
-              <Form.Control
-                type="text"
-                name="apellido"
-                onChange={handleChange}
-                value={usuario.apellido}
-              />
-            </Form.Group>
-            <Form.Group controlId="telefonoId">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="text"
-                name="telefono"
-                onChange={handleChange}
-                value={usuario.telefono}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Editar usuario</DialogTitle>
+        <DialogContent>
+          <div>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="nombre"
+              label="Nombre"
+              type="text"
+              name="nombre"
+              value={usuario.nombre}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="nombre"
+              label="Apellido"
+              type="text"
+              name="apellido"
+              value={usuario.apellido}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="nombre"
+              label="Teléfono"
+              type="text"
+              name="telefono"
+              value={usuario.telefono}
+              onChange={handleChange}
+            />
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>
-          <Button variant="primary" onClick={saveAndClose}>
-            Aceptar
+          <Button onClick={saveAndClose} color="primary">
+            Editar
           </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 };
 
