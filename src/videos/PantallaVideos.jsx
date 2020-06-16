@@ -85,7 +85,7 @@ const PantallaVideos = () => {
   };
 
   const cambiarEstado = (videoId, nuevoEstado) => {
-    console.log(videoId, nuevoEstado);
+    MediaServerService.cambiarEstado(videoId, nuevoEstado);
   };
 
   const renderTableBody = () => {

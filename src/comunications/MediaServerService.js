@@ -8,5 +8,10 @@ const obtenerVideos = async () => {
   return response.data;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { obtenerVideos };
+const cambiarEstado = (videoId, nuevoEstado) => {
+  const data = { habilitado: nuevoEstado };
+  // axios.put(`${MEDIA_SERVER_API}/video/${videoId}`, data);
+  console.log(videoId, data);
+};
+
+export { obtenerVideos, cambiarEstado };
