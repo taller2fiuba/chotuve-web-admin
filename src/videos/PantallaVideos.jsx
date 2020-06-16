@@ -10,6 +10,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Alert from "@material-ui/lab/Alert";
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
 
 import * as MediaServerService from "../comunications/MediaServerService";
 
@@ -48,12 +50,12 @@ const PantallaVideos = () => {
 
   const renderTableHeaders = () => {
     const headers = [
-      "Id",
       "Título",
       "Descripción",
       "Ubicación",
       "Duración",
       "Visibilidad",
+      "Habilitado",
       "Acciones",
     ];
     return (
@@ -86,12 +88,18 @@ const PantallaVideos = () => {
       <TableBody>
         {videos.map((video) => (
           <StyledTableRow key={video._id}>
-            <StyledTableCell>{video._id}</StyledTableCell>
             <StyledTableCell>{video.titulo}</StyledTableCell>
             <StyledTableCell>{video.descripcion}</StyledTableCell>
             <StyledTableCell>{video.ubicacion}</StyledTableCell>
             <StyledTableCell>{video.duracion}</StyledTableCell>
             <StyledTableCell>{video.visibilidad}</StyledTableCell>
+            <StyledTableCell>
+              {video.habilitado ? (
+                <DoneIcon fontSize="large" />
+              ) : (
+                <ClearIcon fontSize="large" />
+              )}
+            </StyledTableCell>
             <StyledTableCell />
           </StyledTableRow>
         ))}
