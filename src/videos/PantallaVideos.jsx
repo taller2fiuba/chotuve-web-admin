@@ -13,6 +13,7 @@ import Alert from "@material-ui/lab/Alert";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 
+import ModalDeshabilitar from "../components/ModalDeshabilitar";
 import * as MediaServerService from "../comunications/MediaServerService";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -83,6 +84,10 @@ const PantallaVideos = () => {
     }
   };
 
+  const cambiarEstado = (videoId, nuevoEstado) => {
+    console.log(videoId, nuevoEstado);
+  };
+
   const renderTableBody = () => {
     return (
       <TableBody>
@@ -100,7 +105,16 @@ const PantallaVideos = () => {
                 <ClearIcon fontSize="large" />
               )}
             </StyledTableCell>
-            <StyledTableCell />
+            <StyledTableCell>
+              <ModalDeshabilitar
+                habilitado={video.habilitado}
+                entidad="video"
+                cambiarEstado={() =>
+                  // eslint-disable-next-line no-use-before-define
+                  cambiarEstado(video._id, !video.habilitado)
+                }
+              />
+            </StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>

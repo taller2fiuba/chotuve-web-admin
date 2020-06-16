@@ -14,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { green } from "@material-ui/core/colors";
 
 const ModalDeshabilitar = (props) => {
-  const { habilitado, cambiarEstadoUsuario } = props;
+  const { habilitado, entidad, cambiarEstado } = props;
 
   const [open, setOpen] = useState(false);
 
@@ -27,7 +27,7 @@ const ModalDeshabilitar = (props) => {
   };
 
   const saveAndClose = () => {
-    cambiarEstadoUsuario();
+    cambiarEstado();
     handleClose();
   };
 
@@ -53,8 +53,8 @@ const ModalDeshabilitar = (props) => {
         <DialogTitle id="alert-dialog-title">{accion}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            ¿Está seguro/a de {habilitado ? "deshabilitar" : "habilitar"} el
-            usuario?
+            ¿Está seguro/a de {habilitado ? "deshabilitar" : "habilitar"} el{" "}
+            {entidad}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -71,8 +71,9 @@ const ModalDeshabilitar = (props) => {
 };
 
 ModalDeshabilitar.propTypes = {
-  cambiarEstadoUsuario: PropTypes.func.isRequired,
+  cambiarEstado: PropTypes.func.isRequired,
   habilitado: PropTypes.bool.isRequired,
+  entidad: PropTypes.string.isRequired,
 };
 
 export default ModalDeshabilitar;
