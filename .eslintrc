@@ -17,6 +17,7 @@
           "semi": true
         }
       ],
-      "react/destructuring-assignment": [0, "always"]
+      "react/destructuring-assignment": [0, "always"],
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }]
     }
   }

@@ -9,6 +9,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import Alert from "@material-ui/lab/Alert";
+
+import * as MediaServerService from "../comunications/MediaServerService";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,6 +39,10 @@ const useStyles = makeStyles({
 
 const PantallaVideos = () => {
   const [videos, setVideos] = useState(null);
+  const [error, setError] = useState({
+    hayError: false,
+    mensaje: "",
+  });
 
   const classes = useStyles();
 
@@ -65,25 +72,21 @@ const PantallaVideos = () => {
     obtenerVideos();
   }, []);
 
-  const obtenerVideos = () => {
-    setVideos([
-      {
-        id: "asd54da",
-        titulo: "Mi primer video",
-        descripcion: "Una descripción muy buena",
-        ubicacion: "En mi casa",
-        duracion: 600,
-        visibilidad: "privado",
-      },
-    ]);
+  const obtenerVideos = async () => {
+    try {
+      const videosResponse = await MediaServerService.obtenerVideos();
+      setVideos(videosResponse);
+    } catch (err) {
+      setError({ hayError: true, mensaje: err.message });
+    }
   };
 
   const renderTableBody = () => {
     return (
       <TableBody>
         {videos.map((video) => (
-          <StyledTableRow key={video.id}>
-            <StyledTableCell>{video.id}</StyledTableCell>
+          <StyledTableRow key={video._id}>
+            <StyledTableCell>{video._id}</StyledTableCell>
             <StyledTableCell>{video.titulo}</StyledTableCell>
             <StyledTableCell>{video.descripcion}</StyledTableCell>
             <StyledTableCell>{video.ubicacion}</StyledTableCell>
@@ -101,6 +104,7 @@ const PantallaVideos = () => {
       <Typography variant="h3" gutterBottom>
         Estado
       </Typography>
+      {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
       <br />
       <TableContainer component={Paper}>
         {videos && (
