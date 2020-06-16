@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Estado from "../estado/Estado";
 import SideBarResponsive from "../components/SideBarResponsive";
 import PantallaUsuarios from "../usuarios/PantallaUsuarios";
+import PantallaVideos from "../videos/PantallaVideos";
 
 export default () => {
   return (
@@ -16,6 +17,9 @@ export default () => {
           </Route>
           <Route exact path="/usuario">
             <PantallaUsuarios />
+          </Route>
+          <Route exact path="/video">
+            <PantallaVideos />
           </Route>
           <Redirect to="/" />
         </Switch>

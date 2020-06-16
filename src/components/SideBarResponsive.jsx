@@ -94,6 +94,12 @@ const SideBarResponsive = (props) => {
           </ListItemIcon>
           <ListItemText primary="Usuarios" />
         </MenuItem>
+        <MenuItem component={Link} to="/video" selected={pathname === "/video"}>
+          <ListItemIcon>
+            <FontAwesomeIcon icon="file-video" />
+          </ListItemIcon>
+          <ListItemText primary="Videos" />
+        </MenuItem>
       </MenuList>
     </div>
   );
@@ -102,6 +108,7 @@ const SideBarResponsive = (props) => {
     if (path === "/") return "Home";
     if (path === "/about") return "About";
     if (path === "/usuario") return "Usuarios";
+    if (path === "/video") return "Videos";
     return "Estado";
   };
 
