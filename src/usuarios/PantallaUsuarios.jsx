@@ -65,12 +65,20 @@ const PantallaUsuarios = () => {
     }
   };
 
-  const editarUsuario = (usuarioId, usuario) => {
-    AuthServerService.editarUsuario(usuarioId, usuario);
+  const editarUsuario = async (usuarioId, usuario) => {
+    try {
+      await AuthServerService.editarUsuario(usuarioId, usuario);
+    } catch (excepcion) {
+      setError({ hayError: true, mensaje: excepcion.message });
+    }
   };
 
-  const cambiarEstadoUsuario = (usuarioId, estadoViejo) => {
-    AuthServerService.cambiarEstadoUsuario(usuarioId, !estadoViejo);
+  const cambiarEstadoUsuario = async (usuarioId, estadoViejo) => {
+    try {
+      await AuthServerService.cambiarEstadoUsuario(usuarioId, !estadoViejo);
+    } catch (excepcion) {
+      setError({ hayError: true, mensaje: excepcion.message });
+    }
   };
 
   const renderTableHeaders = () => {

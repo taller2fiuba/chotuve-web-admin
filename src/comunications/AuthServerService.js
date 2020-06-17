@@ -30,17 +30,13 @@ const obtenerUsuario = (usuarioId) => {
   };
 };
 
-const editarUsuario = (usuarioId, usuario) => {
-  console.log(usuario);
-  console.log(usuarioId);
-  // axios.put(`${AUTH_SERVER_API}/usuario`, usuario);
+const editarUsuario = async (usuarioId, usuario) => {
+  await axios.put(`${AUTH_SERVER_API}/usuario/${usuarioId}`, usuario);
 };
 
-const cambiarEstadoUsuario = (usuarioId, nuevoEstado) => {
-  console.log(usuarioId);
-  console.log(nuevoEstado);
+const cambiarEstadoUsuario = async (usuarioId, nuevoEstado) => {
   const data = { habilitado: nuevoEstado };
-  editarUsuario(usuarioId, data);
+  await axios.put(`${AUTH_SERVER_API}/usuario/${usuarioId}`, data);
 };
 
 export {
