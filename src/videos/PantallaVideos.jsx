@@ -15,6 +15,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import ModalDeshabilitar from "../components/ModalDeshabilitar";
 import * as MediaServerService from "../comunications/MediaServerService";
+import ModalEditarVideo from "./ModalEditarVideo";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -88,6 +89,10 @@ const PantallaVideos = () => {
     MediaServerService.cambiarEstado(videoId, nuevoEstado);
   };
 
+  const editarVideo = (videoId, video) => {
+    MediaServerService.editarVideo(videoId, video);
+  };
+
   const renderTableBody = () => {
     return (
       <TableBody>
@@ -114,6 +119,7 @@ const PantallaVideos = () => {
                   cambiarEstado(video._id, !video.habilitado)
                 }
               />
+              <ModalEditarVideo videoId={video._id} onSubmit={editarVideo} />
             </StyledTableCell>
           </StyledTableRow>
         ))}
