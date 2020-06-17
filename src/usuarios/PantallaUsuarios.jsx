@@ -14,7 +14,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 
 import ModalDeshabilitar from "../components/ModalDeshabilitar";
-import ModalEditarUsuario from "./ModalComponents/ModalEditar";
+import ModalEditarUsuario from "./ModalEditarUsuario";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 
