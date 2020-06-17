@@ -34,6 +34,7 @@ const ModalEditarVideo = (props) => {
     apellido: "",
     telefono: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const classes = useStyles();
 
@@ -59,6 +60,8 @@ const ModalEditarVideo = (props) => {
   };
 
   const saveAndClose = () => {
+    setSubmitted(true);
+    if (!video.titulo) return;
     onSubmit(videoId, video);
     setOpen(false);
   };
@@ -96,6 +99,8 @@ const ModalEditarVideo = (props) => {
                 name="titulo"
                 value={video.titulo}
                 onChange={handleChange}
+                error={submitted && !video.titulo}
+                helperText={submitted && !video.titulo && "Ingrese un título"}
               />
               <TextField
                 id="descripcion"
