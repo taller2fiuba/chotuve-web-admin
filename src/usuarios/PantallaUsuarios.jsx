@@ -83,7 +83,6 @@ const PantallaUsuarios = () => {
 
   const renderTableHeaders = () => {
     const headers = [
-      "Id",
       "Nombre",
       "Apellido",
       "Email",
@@ -107,7 +106,6 @@ const PantallaUsuarios = () => {
       <TableBody>
         {usuarios.map((usuario) => (
           <StyledTableRow key={usuario.id}>
-            <StyledTableCell>{usuario.id}</StyledTableCell>
             <StyledTableCell>{usuario.nombre}</StyledTableCell>
             <StyledTableCell>{usuario.apellido}</StyledTableCell>
             <StyledTableCell>{usuario.email}</StyledTableCell>

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const AUTH_SERVER_API = "http://localhost:26080";
+const CANTIDAD_POR_DEFECTO = 100;
 
 // eslint-disable-next-line no-unused-vars
 const getAppServers = (callback, errorHandler) => {
@@ -15,7 +16,9 @@ const getAppServers = (callback, errorHandler) => {
 };
 
 const obtenerUsuarios = async () => {
-  const response = await axios.get(`${AUTH_SERVER_API}/usuario`);
+  const response = await axios.get(`${AUTH_SERVER_API}/usuario`, {
+    params: { cantidad: CANTIDAD_POR_DEFECTO },
+  });
   return response.data;
 };
 
