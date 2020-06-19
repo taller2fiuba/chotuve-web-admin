@@ -22,15 +22,9 @@ const obtenerUsuarios = async () => {
   return response.data;
 };
 
-const obtenerUsuario = (usuarioId) => {
-  return {
-    id: usuarioId,
-    nombre: "Edson",
-    apellido: "Justo",
-    email: "ed@ed.com",
-    telefono: "445567797",
-    habilitado: true,
-  };
+const obtenerUsuario = async (usuarioId) => {
+  const response = await axios.get(`${AUTH_SERVER_API}/usuario/${usuarioId}`);
+  return response.data;
 };
 
 const editarUsuario = async (usuarioId, usuario) => {

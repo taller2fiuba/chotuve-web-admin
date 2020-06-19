@@ -50,11 +50,16 @@ const PantallaUsuarios = () => {
     hayError: false,
     mensaje: "",
   });
+  const [usuarioEditado, setUsuarioEditado] = useState({
+    nombre: "",
+    apellido: "",
+    telefono: "",
+  });
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerUsuarios();
-  }, []);
+  }, [usuarioEditado]);
 
   const obtenerUsuarios = async () => {
     try {
@@ -68,14 +73,20 @@ const PantallaUsuarios = () => {
   const editarUsuario = async (usuarioId, usuario) => {
     try {
       await AuthServerService.editarUsuario(usuarioId, usuario);
+      setUsuarioEditado(usuario);
     } catch (excepcion) {
       setError({ hayError: true, mensaje: excepcion.message });
     }
   };
 
-  const cambiarEstadoUsuario = async (usuarioId, estadoViejo) => {
+  const cambiarEstadoUsuario = async (usuarioId, nuevoEstado) => {
     try {
-      await AuthServerService.cambiarEstadoUsuario(usuarioId, !estadoViejo);
+      await AuthServerService.cambiarEstadoUsuario(usuarioId, nuevoEstado);
+      setUsuarioEditado({
+        nombre: "",
+        apellido: "",
+        telefono: "",
+      });
     } catch (excepcion) {
       setError({ hayError: true, mensaje: excepcion.message });
     }
@@ -111,7 +122,7 @@ const PantallaUsuarios = () => {
             <StyledTableCell>{usuario.email}</StyledTableCell>
             <StyledTableCell>{usuario.telefono}</StyledTableCell>
             <StyledTableCell>
-              {usuario.id % 2 === 0 ? (
+              {usuario.habilitado ? (
                 <DoneIcon fontSize="large" />
               ) : (
                 <ClearIcon fontSize="large" />
@@ -121,9 +132,9 @@ const PantallaUsuarios = () => {
               <ModalDeshabilitarUsuario
                 cambiarEstadoUsuario={() =>
                   // eslint-disable-next-line no-use-before-define
-                  cambiarEstadoUsuario(usuario.id, usuario.id % 2 === 0)
+                  cambiarEstadoUsuario(usuario.id, !usuario.habilitado)
                 }
-                habilitado={usuario.id % 2 === 0}
+                habilitado={usuario.habilitado}
               />
               {usuarios && (
                 <ModalEditarUsuario

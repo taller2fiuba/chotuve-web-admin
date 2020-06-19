@@ -34,8 +34,8 @@ const ModalEditarUsuario = (props) => {
     setOpen(false);
   };
 
-  const obtenerUsuario = () => {
-    const response = AuthServerService.obtenerUsuario(usuarioId);
+  const obtenerUsuario = async () => {
+    const response = await AuthServerService.obtenerUsuario(usuarioId);
     setUsuario(response);
   };
 
