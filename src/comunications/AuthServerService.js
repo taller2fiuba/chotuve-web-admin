@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const AUTH_SERVER_API = "http://localhost:26080";
+const AUTH_SERVER_API = "https://chotuve-auth-server-g4.herokuapp.com";
 const CANTIDAD_POR_DEFECTO = 100;
 
 // eslint-disable-next-line no-unused-vars
 const getAppServers = (callback, errorHandler) => {
-  // TODO:Debería devolver una lista de objetos con la información de las appservers regitradas
+  // TODO:Debería devolver una lista de objetos con la información de loss appservers regitrados
   // axios(`${AUTH_SERVER}/appservers`)
   //     .then(response => callback(response))
   //     .catch(error => errorHandler(error));
