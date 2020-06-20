@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 import FilaEstadoServer from "./FilaEstadoServer";
-import authServerService from "../../comunications/AuthServerService";
+import * as AuthServerService from "../comunications/AuthServerService";
 
-// TODO: Mover a variable de ambiente
 const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
 const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
 
@@ -21,7 +20,7 @@ export default class TablaEstadoServer extends Component {
   }
 
   componentDidMount() {
-    authServerService.getAppServers(this.handleApiResponse, (error) =>
+    AuthServerService.getAppServers(this.handleApiResponse, (error) =>
       console.log(error)
     );
   }

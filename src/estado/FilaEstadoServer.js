@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import BeatLoader from "react-spinners/BeatLoader";
-import Requester from "../../comunications/Requester";
+import Requester from "../comunications/Requester";
 
 export default class FilaEstadoServer extends Component {
   constructor(props) {
