@@ -50,13 +50,20 @@ const PantallaVideos = () => {
   });
   const [pagina, setPagina] = useState(0);
   const [filasPorPagina, setFilasPorPagina] = useState(5);
+  const [videoEditado, setVideoEditado] = useState({
+    titulo: "",
+    descripcion: "",
+    habilitado: false,
+    ubicacion: "",
+    duracion: 0,
+  });
 
   const classes = useStyles();
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerVideos();
-  }, []);
+  }, [videoEditado]);
 
   const handleChangePage = (event, nuevaPagina) => {
     setPagina(nuevaPagina);
@@ -101,8 +108,13 @@ const PantallaVideos = () => {
     MediaServerService.cambiarEstado(videoId, nuevoEstado);
   };
 
-  const editarVideo = (videoId, video) => {
-    MediaServerService.editarVideo(videoId, video);
+  const editarVideo = async (videoId, video) => {
+    try {
+      await MediaServerService.editarVideo(videoId, video);
+      setVideoEditado(video);
+    } catch (excepcion) {
+      setError({ hayError: true, mensaje: excepcion.message });
+    }
   };
 
   const renderTableBody = () => {

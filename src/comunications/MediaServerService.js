@@ -11,27 +11,31 @@ const obtenerVideos = async () => {
   return response.data;
 };
 
-const obtenerVideo = (videoId) => {
-  return {
-    _id: videoId,
-    titulo: "Video 1",
-    descripcion: "Un video hardcoded",
-    ubicacion: "En mi casa",
-    duracion: 600,
-    visibilidad: "privado",
-    habilitado: true,
-  };
+const obtenerVideo = async (videoId) => {
+  const response = await axios.get(`${MEDIA_SERVER_API}/video/${videoId}`, {
+    params: { cantidad: CANTIDAD },
+  });
+  return response.data;
+  // return {
+  //   _id: videoId,
+  //   titulo: "Video 1",
+  //   descripcion: "Un video hardcoded",
+  //   ubicacion: "En mi casa",
+  //   duracion: 600,
+  //   visibilidad: "privado",
+  //   habilitado: true,
+  // };
 };
 
-const cambiarEstado = (videoId, nuevoEstado) => {
+const cambiarEstado = async (videoId, nuevoEstado) => {
   const data = { habilitado: nuevoEstado };
-  // axios.put(`${MEDIA_SERVER_API}/video/${videoId}`, data);
-  console.log(videoId, data);
+  await axios.put(`${MEDIA_SERVER_API}/video/${videoId}`, data);
+  // console.log(videoId, data);
 };
 
-const editarVideo = (videoId, video) => {
-  // axios.put(`${MEDIA_SERVER_API}/video/${videoId}`, video);
-  console.log(videoId, video);
+const editarVideo = async (videoId, video) => {
+  await axios.put(`${MEDIA_SERVER_API}/video/${videoId}`, video);
+  // console.log(videoId, video);
 };
 
 export { obtenerVideos, obtenerVideo, cambiarEstado, editarVideo };

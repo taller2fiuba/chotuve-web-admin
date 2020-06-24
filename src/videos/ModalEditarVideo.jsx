@@ -120,16 +120,6 @@ const ModalEditarVideo = (props) => {
                 onChange={handleChange}
               />
               <TextField
-                id="duracion"
-                label="Duración"
-                type="number"
-                value={video.duracion}
-                name="duracion"
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <TextField
                 id="visibilidad"
                 select
                 label="Visibilidad"
