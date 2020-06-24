@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import MenuItem from "@material-ui/core/MenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FondoSideBar from "../assets/fondo-sidebar.jpg";
 
 const drawerWidth = 240;
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
-    background: "#2E3B55",
+    background: "linear-gradient(45deg, #64485C 30%, #83677B 90%)",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -44,12 +45,19 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    background: `url(${FondoSideBar})`,
   },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.text.primary,
+  MenuItem: {
+    color: "lightblue",
   },
 }));
+
+const titulos = {
+  "/": "Home",
+  "/usuario": "Usuarios",
+  "/estado": "Estado",
+  "/video": "Videos",
+};
 
 const SideBarResponsive = (props) => {
   const {
@@ -68,9 +76,14 @@ const SideBarResponsive = (props) => {
       <div className={classes.toolbar} />
       <Divider />
       <MenuList>
-        <MenuItem component={Link} to="/" selected={pathname === "/"}>
+        <MenuItem
+          component={Link}
+          to="/"
+          selected={pathname === "/"}
+          className={classes.MenuItem}
+        >
           <ListItemIcon>
-            <FontAwesomeIcon icon="home" />
+            <FontAwesomeIcon icon="home" className={classes.MenuItem} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </MenuItem>
@@ -78,9 +91,10 @@ const SideBarResponsive = (props) => {
           component={Link}
           to="/estado"
           selected={pathname === "/estado"}
+          className={classes.MenuItem}
         >
           <ListItemIcon>
-            <FontAwesomeIcon icon="chart-bar" />
+            <FontAwesomeIcon icon="chart-bar" className={classes.MenuItem} />
           </ListItemIcon>
           <ListItemText primary="Estado" />
         </MenuItem>
@@ -88,29 +102,27 @@ const SideBarResponsive = (props) => {
           component={Link}
           to="/usuario"
           selected={pathname === "/usuario"}
+          className={classes.MenuItem}
         >
           <ListItemIcon>
-            <FontAwesomeIcon icon="user" />
+            <FontAwesomeIcon icon="user" className={classes.MenuItem} />
           </ListItemIcon>
           <ListItemText primary="Usuarios" />
         </MenuItem>
-        <MenuItem component={Link} to="/video" selected={pathname === "/video"}>
+        <MenuItem
+          component={Link}
+          to="/video"
+          selected={pathname === "/video"}
+          className={classes.MenuItem}
+        >
           <ListItemIcon>
-            <FontAwesomeIcon icon="file-video" />
+            <FontAwesomeIcon icon="file-video" className={classes.MenuItem} />
           </ListItemIcon>
           <ListItemText primary="Videos" />
         </MenuItem>
       </MenuList>
     </div>
   );
-
-  const nombreContenido = (path) => {
-    if (path === "/") return "Home";
-    if (path === "/about") return "About";
-    if (path === "/usuario") return "Usuarios";
-    if (path === "/video") return "Videos";
-    return "Estado";
-  };
 
   return (
     <div className={classes.root}>
@@ -126,7 +138,7 @@ const SideBarResponsive = (props) => {
             <FontAwesomeIcon icon="bars" />
           </IconButton>
           <Typography variant="h6" noWrap>
-            {nombreContenido(pathname)}
+            {titulos[pathname]}
           </Typography>
         </Toolbar>
       </AppBar>

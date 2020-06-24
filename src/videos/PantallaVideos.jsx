@@ -159,7 +159,7 @@ const PantallaVideos = () => {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Estado
+        Videos
       </Typography>
       {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
       <br />
