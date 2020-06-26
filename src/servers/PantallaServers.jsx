@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Alert from "@material-ui/lab/Alert";
 
 import * as AuthServerService from "../comunications/AuthServerService";
+import ModalCrearServer from "./ModalCrearServer";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -52,7 +53,7 @@ const PantallaServers = () => {
   }, []);
 
   const renderTableHeaders = () => {
-    const headers = ["Nombre", "Url"];
+    const headers = ["Nombre", "Url", "Acciones"];
     return (
       <TableHead>
         <TableRow>
@@ -76,14 +77,19 @@ const PantallaServers = () => {
   const renderTableBody = () => {
     return (
       <TableBody>
-        {servers.map((video) => (
-          <StyledTableRow key={video.id}>
-            <StyledTableCell>{video.nombre}</StyledTableCell>
-            <StyledTableCell>{video.url}</StyledTableCell>
+        {servers.map((server) => (
+          <StyledTableRow key={server.id}>
+            <StyledTableCell>{server.nombre}</StyledTableCell>
+            <StyledTableCell>{server.url}</StyledTableCell>
+            <StyledTableCell>{server.url}</StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>
     );
+  };
+
+  const crearServer = (server) => {
+    console.log(server);
   };
 
   return (
@@ -94,12 +100,15 @@ const PantallaServers = () => {
       {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
       <br />
       {servers && (
-        <TableContainer component={Paper}>
-          <Table className={classes.table}>
-            {renderTableHeaders()}
-            {renderTableBody()}
-          </Table>
-        </TableContainer>
+        <>
+          <ModalCrearServer onSubmit={crearServer} />
+          <TableContainer component={Paper}>
+            <Table className={classes.table}>
+              {renderTableHeaders()}
+              {renderTableBody()}
+            </Table>
+          </TableContainer>
+        </>
       )}
     </Container>
   );

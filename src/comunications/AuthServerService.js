@@ -40,8 +40,8 @@ const obtenerAppServers = async () => {
   const response = await new Promise((resolve, reject) => {
     if (true) {
       resolve([
-        { nombre: "app 1", url: "lala/dasd/da" },
-        { nombre: "app 2", url: "fafla/dasd" },
+        { id: 1, nombre: "app 1", url: "lala/dasd/da" },
+        { id: 2, nombre: "app 2", url: "fafla/dasd" },
       ]);
     } else {
       reject(Error("Error interno"));
