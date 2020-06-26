@@ -51,7 +51,7 @@ const ModalCrearServer = ({ onSubmit }) => {
             <TextField
               autoFocus
               margin="dense"
-              id={server.nombre}
+              id="nombre"
               label="Nombre"
               type="text"
               name="nombre"
@@ -63,11 +63,11 @@ const ModalCrearServer = ({ onSubmit }) => {
             <TextField
               autoFocus
               margin="dense"
-              id={server.url}
+              id="url"
               label="Url"
               type="text"
               name="url"
-              value={server.apellido}
+              value={server.url}
               onChange={handleChange}
             />
           </div>

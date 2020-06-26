@@ -14,6 +14,7 @@ import Alert from "@material-ui/lab/Alert";
 import * as AuthServerService from "../comunications/AuthServerService";
 import ModalCrearServer from "./ModalCrearServer";
 import ModalBorrarServer from "./ModalBorrarServer";
+import AlertInformativa from "../components/AlertaInformativa";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,13 +46,18 @@ const PantallaServers = () => {
     hayError: false,
     mensaje: "",
   });
+  const [ultimoServer, setUltimoServer] = useState({ nombre: "", url: "" });
+  const [informacionToken, setInformacionToken] = useState({
+    hayToken: false,
+    token: "",
+  });
 
   const classes = useStyles();
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerServers();
-  }, []);
+  }, [ultimoServer]);
 
   const renderTableHeaders = () => {
     const headers = ["Nombre", "Url", "Acciones"];
@@ -70,29 +76,31 @@ const PantallaServers = () => {
     try {
       const appServers = await AuthServerService.obtenerAppServers();
       setServers(appServers);
-    } catch (err) {
-      setError({ hayError: true, mensaje: err.message });
+    } catch (exception) {
+      setError({ hayError: true, mensaje: exception.message });
     }
   };
 
   const eliminarServer = async (serverId) => {
     try {
       await AuthServerService.eliminarServer(serverId);
+      setUltimoServer({ nombre: "", url: "" });
     } catch (exception) {
-      console.log(exception);
+      setError({ hayError: true, mensaje: exception.message });
     }
   };
 
-  const handleCrearResponse = (response) => {
-    console.log(response);
+  const handleCrearResponse = ({ token }) => {
+    setInformacionToken({ hayToken: true, token });
   };
 
   const crearServer = async (server) => {
     try {
       const response = await AuthServerService.crearServer(server);
+      setUltimoServer(server);
       handleCrearResponse(response);
     } catch (exception) {
-      console.log(exception);
+      setError({ hayError: true, mensaje: exception.message });
     }
   };
 
@@ -115,9 +123,15 @@ const PantallaServers = () => {
   return (
     <Container>
       <Typography variant="h3" gutterBottom>
-        Videos
+        Servers
       </Typography>
       {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
+      {informacionToken.hayToken && (
+        <AlertInformativa
+          onClose={() => setInformacionToken(false)}
+          token={informacionToken.token}
+        />
+      )}
       <br />
       {servers && (
         <>
