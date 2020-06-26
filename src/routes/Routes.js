@@ -4,6 +4,7 @@ import Estado from "../estado/Estado";
 import SideBarResponsive from "../components/SideBarResponsive";
 import PantallaUsuarios from "../usuarios/PantallaUsuarios";
 import PantallaVideos from "../videos/PantallaVideos";
+import PantallaServers from "../servers/PantallaServers";
 
 export default () => {
   return (
@@ -20,6 +21,9 @@ export default () => {
           </Route>
           <Route exact path="/video">
             <PantallaVideos />
+          </Route>
+          <Route exact path="/server">
+            <PantallaServers />
           </Route>
           <Redirect to="/" />
         </Switch>
