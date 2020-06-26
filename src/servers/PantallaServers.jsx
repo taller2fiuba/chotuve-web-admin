@@ -75,8 +75,25 @@ const PantallaServers = () => {
     }
   };
 
-  const eliminarServer = (serverId) => {
-    console.log(serverId);
+  const eliminarServer = async (serverId) => {
+    try {
+      await AuthServerService.eliminarServer(serverId);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const handleCrearResponse = (response) => {
+    console.log(response);
+  };
+
+  const crearServer = async (server) => {
+    try {
+      const response = await AuthServerService.crearServer(server);
+      handleCrearResponse(response);
+    } catch (exception) {
+      console.log(exception);
+    }
   };
 
   const renderTableBody = () => {
@@ -93,10 +110,6 @@ const PantallaServers = () => {
         ))}
       </TableBody>
     );
-  };
-
-  const crearServer = (server) => {
-    console.log(server);
   };
 
   return (
