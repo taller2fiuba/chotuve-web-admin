@@ -3,6 +3,11 @@ import axios from "axios";
 const AUTH_SERVER_API = "https://chotuve-auth-server-g4.herokuapp.com";
 const CANTIDAD_POR_DEFECTO = 100;
 
+let servers = [
+  { id: 1, nombre: "app 1", url: "lala/dasd/da" },
+  { id: 2, nombre: "app 2", url: "fafla/dasd" },
+];
+
 // eslint-disable-next-line no-unused-vars
 const getAppServers = (callback, errorHandler) => {
   // TODO:Debería devolver una lista de objetos con la información de loss appservers regitrados
@@ -39,10 +44,7 @@ const cambiarEstadoUsuario = async (usuarioId, nuevoEstado) => {
 const obtenerAppServers = async () => {
   const response = await new Promise((resolve, reject) => {
     if (true) {
-      resolve([
-        { id: 1, nombre: "app 1", url: "lala/dasd/da" },
-        { id: 2, nombre: "app 2", url: "fafla/dasd" },
-      ]);
+      resolve(servers);
     } else {
       reject(Error("Error interno"));
     }
@@ -54,8 +56,10 @@ const crearServer = async (server) => {
   // const response = await axios.post(`${AUTH_SERVER_API}/app-server`, server);
   const response = await new Promise((resolve, reject) => {
     if (true) {
-      console.log(server);
-      resolve({ app_id: 1, token: "ASLDdas7asd12edsaKsldaF" });
+      const { ...pr } = server;
+      servers.push({ id: servers.length + 1, ...pr });
+      console.log(servers);
+      resolve({ app_id: servers.length + 1, token: "ASLDdas7asd12edsaKsldaF" });
     } else {
       reject(Error("Error interno"));
     }
@@ -68,6 +72,8 @@ const eliminarServer = async (serverId) => {
   await new Promise((resolve, reject) => {
     if (true) {
       console.log(serverId);
+      servers = servers.filter((serv) => serv.id !== serverId);
+      console.log(servers);
       resolve();
     } else {
       reject(Error("Error interno"));

@@ -17,6 +17,7 @@ const ModalCrearServer = ({ onSubmit }) => {
     nombre: "",
     url: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
 
@@ -29,6 +30,8 @@ const ModalCrearServer = ({ onSubmit }) => {
   };
 
   const saveAndClose = () => {
+    setSubmitted(true);
+    if (!server.nombre || !server.url) return;
     onSubmit(server);
     setOpen(false);
   };
@@ -57,6 +60,8 @@ const ModalCrearServer = ({ onSubmit }) => {
               name="nombre"
               value={server.nombre}
               onChange={handleChange}
+              error={submitted && !server.nombre}
+              helperText={submitted && !server.nombre && "Ingrese un nombre"}
             />
           </div>
           <div>
@@ -69,6 +74,8 @@ const ModalCrearServer = ({ onSubmit }) => {
               name="url"
               value={server.url}
               onChange={handleChange}
+              error={submitted && !server.url}
+              helperText={submitted && !server.url && "Ingrese una url"}
             />
           </div>
         </DialogContent>
