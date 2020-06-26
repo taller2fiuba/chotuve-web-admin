@@ -13,6 +13,7 @@ import Alert from "@material-ui/lab/Alert";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 import ModalCrearServer from "./ModalCrearServer";
+import ModalBorrarServer from "./ModalBorrarServer";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -74,6 +75,10 @@ const PantallaServers = () => {
     }
   };
 
+  const eliminarServer = (serverId) => {
+    console.log(serverId);
+  };
+
   const renderTableBody = () => {
     return (
       <TableBody>
@@ -81,7 +86,9 @@ const PantallaServers = () => {
           <StyledTableRow key={server.id}>
             <StyledTableCell>{server.nombre}</StyledTableCell>
             <StyledTableCell>{server.url}</StyledTableCell>
-            <StyledTableCell>{server.url}</StyledTableCell>
+            <StyledTableCell>
+              <ModalBorrarServer onSubmit={() => eliminarServer(server.id)} />
+            </StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>
