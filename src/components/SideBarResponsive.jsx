@@ -57,6 +57,7 @@ const titulos = {
   "/usuario": "Usuarios",
   "/estado": "Estado",
   "/video": "Videos",
+  "/server": "App Servers",
 };
 
 const SideBarResponsive = (props) => {
@@ -119,6 +120,17 @@ const SideBarResponsive = (props) => {
             <FontAwesomeIcon icon="file-video" className={classes.MenuItem} />
           </ListItemIcon>
           <ListItemText primary="Videos" />
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          to="/server"
+          selected={pathname === "/server"}
+          className={classes.MenuItem}
+        >
+          <ListItemIcon>
+            <FontAwesomeIcon icon="server" className={classes.MenuItem} />
+          </ListItemIcon>
+          <ListItemText primary="Servers" />
         </MenuItem>
       </MenuList>
     </div>
