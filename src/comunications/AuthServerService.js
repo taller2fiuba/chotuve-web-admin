@@ -50,6 +50,31 @@ const obtenerAppServers = async () => {
   return response;
 };
 
+const crearServer = async (server) => {
+  // const response = await axios.post(`${AUTH_SERVER_API}/app-server`, server);
+  const response = await new Promise((resolve, reject) => {
+    if (true) {
+      console.log(server);
+      resolve({ app_id: 1, token: "ASLDdas7asd12edsaKsldaF" });
+    } else {
+      reject(Error("Error interno"));
+    }
+  });
+  return response;
+};
+
+const eliminarServer = async (serverId) => {
+  // await axios.delete(`${AUTH_SERVER_API}/app-server/${serverId}`);
+  await new Promise((resolve, reject) => {
+    if (true) {
+      console.log(serverId);
+      resolve();
+    } else {
+      reject(Error("Error interno"));
+    }
+  });
+};
+
 export {
   getAppServers,
   obtenerUsuarios,
@@ -57,4 +82,6 @@ export {
   editarUsuario,
   cambiarEstadoUsuario,
   obtenerAppServers,
+  crearServer,
+  eliminarServer,
 };
