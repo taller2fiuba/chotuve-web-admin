@@ -94,6 +94,11 @@ const login = async (usuario, clave) => {
   return response;
 };
 
+const estaLogeado = () => {
+  // eslint-disable-next-line no-undef
+  return !!localStorage.getItem(TOKEN);
+};
+
 export {
   getAppServers,
   obtenerUsuarios,
@@ -104,4 +109,5 @@ export {
   crearServer,
   eliminarServer,
   login,
+  estaLogeado,
 };

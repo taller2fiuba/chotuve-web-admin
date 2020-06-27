@@ -1,34 +1,36 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Estado from "../estado/Estado";
-// import SideBarResponsive from "../components/SideBarResponsive";
+import SideBarResponsive from "../components/SideBarResponsive";
 import PantallaUsuarios from "../usuarios/PantallaUsuarios";
 import PantallaVideos from "../videos/PantallaVideos";
 import PantallaServers from "../servers/PantallaServers";
 import Login from "../autenticacion/Login";
+import PrivateRoute from "../autenticacion/PrivateRoute";
+import * as AuthServerService from "../comunications/AuthServerService";
 
 export default () => {
   return (
     <BrowserRouter key="router">
       <div style={{ display: "flex" }}>
-        {/* <SideBarResponsive /> */}
+        {AuthServerService.estaLogeado() && <SideBarResponsive />}
         <Switch>
           <Route exact path="/login">
             <Login />
           </Route>
-          <Route exact path="/" />
-          <Route exact path="/estado">
+          <PrivateRoute exact path="/" />
+          <PrivateRoute exact path="/estado">
             <Estado />
-          </Route>
-          <Route exact path="/usuario">
+          </PrivateRoute>
+          <PrivateRoute exact path="/usuario">
             <PantallaUsuarios />
-          </Route>
-          <Route exact path="/video">
+          </PrivateRoute>
+          <PrivateRoute exact path="/video">
             <PantallaVideos />
-          </Route>
-          <Route exact path="/server">
+          </PrivateRoute>
+          <PrivateRoute exact path="/server">
             <PantallaServers />
-          </Route>
+          </PrivateRoute>
           <Redirect to="/" />
         </Switch>
       </div>
