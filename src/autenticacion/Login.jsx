@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -66,6 +67,14 @@ const Login = () => {
 
   const classes = useStyles();
 
+  const history = useHistory();
+
+  useEffect(() => {
+    if (AuthServerService.estaLogeado()) {
+      history.replace("/");
+    }
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredenciales({ ...credenciales, [name]: value });
@@ -76,6 +85,9 @@ const Login = () => {
     if (credenciales.usuario && credenciales.clave) {
       try {
         await AuthServerService.login(credenciales.usuario, credenciales.clave);
+        history.replace("/");
+        // eslint-disable-next-line no-undef
+        window.location.reload(false);
       } catch (excepcion) {
         setError(excepcion.message);
       }
