@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -59,6 +59,7 @@ const Login = () => {
     usuario: "",
     clave: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const classes = useStyles();
 
@@ -67,8 +68,8 @@ const Login = () => {
     setCredenciales({ ...credenciales, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    setSubmitted(true);
     console.log(credenciales);
   };
 
@@ -79,7 +80,7 @@ const Login = () => {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AccountCircleIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Iniciar sesión
@@ -88,13 +89,16 @@ const Login = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="usuario"
               label="Usuario"
               name="usuario"
               onChange={handleChange}
               autoFocus
+              error={submitted && !credenciales.usuario}
+              helperText={
+                submitted && !credenciales.usuario && "Ingrese un usuario"
+              }
             />
             <TextField
               variant="outlined"
@@ -106,9 +110,12 @@ const Login = () => {
               type="clave"
               id="clave"
               onChange={handleChange}
+              error={submitted && !credenciales.clave}
+              helperText={
+                submitted && !credenciales.clave && "Ingrese una clave"
+              }
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
