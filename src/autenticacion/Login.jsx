@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -11,6 +10,9 @@ import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import Alert from "@material-ui/lab/Alert";
+
+import * as AuthServerService from "../comunications/AuthServerService";
 
 function Copyright() {
   return (
@@ -60,6 +62,7 @@ const Login = () => {
     clave: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const classes = useStyles();
 
@@ -68,9 +71,15 @@ const Login = () => {
     setCredenciales({ ...credenciales, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitted(true);
-    console.log(credenciales);
+    if (credenciales.usuario && credenciales.clave) {
+      try {
+        await AuthServerService.login(credenciales.usuario, credenciales.clave);
+      } catch (excepcion) {
+        setError(excepcion.message);
+      }
+    }
   };
 
   return (
@@ -86,6 +95,7 @@ const Login = () => {
             Iniciar sesión
           </Typography>
           <form className={classes.form} autoComplete="off">
+            {error && <Alert severity="error">{error}</Alert>}
             <TextField
               variant="outlined"
               margin="normal"
@@ -107,7 +117,7 @@ const Login = () => {
               fullWidth
               name="clave"
               label="Clave"
-              type="clave"
+              type="password"
               id="clave"
               onChange={handleChange}
               error={submitted && !credenciales.clave}
