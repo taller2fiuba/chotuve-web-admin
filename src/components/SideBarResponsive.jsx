@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuList from "@material-ui/core/MenuList";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -50,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
   MenuItem: {
     color: "lightblue",
   },
+  title: {
+    flexGrow: 1,
+  },
 }));
 
 const titulos = {
@@ -64,6 +69,7 @@ const SideBarResponsive = (props) => {
   const {
     // eslint-disable-next-line react/prop-types
     location: { pathname },
+    handleLogout,
   } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -149,9 +155,12 @@ const SideBarResponsive = (props) => {
           >
             <FontAwesomeIcon icon="bars" />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" className={classes.title}>
             {titulos[pathname]}
           </Typography>
+          <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>
@@ -185,6 +194,10 @@ const SideBarResponsive = (props) => {
       </nav>
     </div>
   );
+};
+
+SideBarResponsive.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default withRouter(SideBarResponsive);

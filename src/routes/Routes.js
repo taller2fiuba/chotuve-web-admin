@@ -10,10 +10,18 @@ import PrivateRoute from "../autenticacion/PrivateRoute";
 import * as AuthServerService from "../comunications/AuthServerService";
 
 export default () => {
+  const handleLogout = () => {
+    AuthServerService.logout();
+    // eslint-disable-next-line no-undef
+    window.location.reload();
+  };
+
   return (
     <BrowserRouter key="router">
       <div style={{ display: "flex" }}>
-        {AuthServerService.estaLogeado() && <SideBarResponsive />}
+        {AuthServerService.estaLogeado() && (
+          <SideBarResponsive handleLogout={handleLogout} />
+        )}
         <Switch>
           <Route exact path="/login">
             <Login />

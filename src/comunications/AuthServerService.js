@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 
 const AUTH_SERVER_API = "https://chotuve-auth-server-g4.herokuapp.com";
@@ -89,14 +90,16 @@ const login = async (usuario, clave) => {
     email: usuario,
     password: clave,
   });
-  // eslint-disable-next-line no-undef
   localStorage.setItem(TOKEN, response.data.token);
   return response;
 };
 
 const estaLogeado = () => {
-  // eslint-disable-next-line no-undef
   return !!localStorage.getItem(TOKEN);
+};
+
+const logout = () => {
+  localStorage.removeItem(TOKEN);
 };
 
 export {
@@ -110,4 +113,5 @@ export {
   eliminarServer,
   login,
   estaLogeado,
+  logout,
 };
