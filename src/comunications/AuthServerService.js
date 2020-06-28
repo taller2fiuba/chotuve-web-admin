@@ -86,11 +86,16 @@ const API_LOGIN = "https://reqres.in/api/login"; // Mock API para el login
 const TOKEN = "token";
 
 const login = async (usuario, clave) => {
-  const response = await axios.post(API_LOGIN, {
-    email: usuario,
-    password: clave,
-  });
+  const response = await axios.post(
+    API_LOGIN,
+    {
+      email: usuario,
+      password: clave,
+    },
+    { handlerEnabled: false }
+  );
   localStorage.setItem(TOKEN, response.data.token);
+
   return response;
 };
 
