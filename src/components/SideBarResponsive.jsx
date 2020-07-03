@@ -11,51 +11,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import MenuItem from "@material-ui/core/MenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FondoSideBar from "../assets/fondo-sidebar.jpg";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-    background: "linear-gradient(45deg, #64485C 30%, #83677B 90%)",
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    background: `url(${FondoSideBar})`,
-  },
-  MenuItem: {
-    color: "lightblue",
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import { useStyles } from "./styles";
 
 const titulos = {
   "/": "Home",
