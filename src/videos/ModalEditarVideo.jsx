@@ -33,6 +33,7 @@ const ModalEditarVideo = (props) => {
     nombre: "",
     apellido: "",
     telefono: "",
+    visibilidad: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -48,8 +49,8 @@ const ModalEditarVideo = (props) => {
     setOpen(false);
   };
 
-  const obtenerVideo = () => {
-    const response = MediaServerService.obtenerVideo(videoId);
+  const obtenerVideo = async () => {
+    const response = await MediaServerService.obtenerVideo(videoId);
     setVideo(response);
   };
 
@@ -93,10 +94,9 @@ const ModalEditarVideo = (props) => {
           <form className={classes.root} noValidate autoComplete="off">
             <div>
               <TextField
-                required
                 id="titulo"
-                label="Titulo"
                 name="titulo"
+                label="Titulo"
                 value={video.titulo}
                 onChange={handleChange}
                 error={submitted && !video.titulo}
@@ -104,8 +104,8 @@ const ModalEditarVideo = (props) => {
               />
               <TextField
                 id="descripcion"
-                label="Descripción"
                 name="descripcion"
+                label="Descripción"
                 value={video.descripcion}
                 onChange={handleChange}
               />
@@ -114,18 +114,18 @@ const ModalEditarVideo = (props) => {
             <div>
               <TextField
                 id="ubicacion"
-                label="Ubicación"
                 name="ubicacion"
+                label="Ubicación"
                 value={video.ubicacion}
                 onChange={handleChange}
               />
               <TextField
                 id="visibilidad"
-                select
+                name="visibilidad"
                 label="Visibilidad"
+                select
                 value={video.visibilidad}
                 onChange={handleChange}
-                name="visibilidad"
               >
                 {renderOpcionesVibilidad()}
               </TextField>

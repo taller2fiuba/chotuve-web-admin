@@ -104,8 +104,16 @@ const PantallaVideos = () => {
     }
   };
 
-  const cambiarEstado = (videoId, nuevoEstado) => {
-    MediaServerService.cambiarEstado(videoId, nuevoEstado);
+  const cambiarEstado = async (videoId, nuevoEstado) => {
+    try {
+      const videoResponse = await MediaServerService.cambiarEstado(
+        videoId,
+        nuevoEstado
+      );
+      setVideoEditado(videoResponse);
+    } catch (excepcion) {
+      setError({ hayError: true, mensaje: excepcion.message });
+    }
   };
 
   const editarVideo = async (videoId, video) => {
