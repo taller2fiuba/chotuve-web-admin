@@ -10,6 +10,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Alert from "@material-ui/lab/Alert";
+import ProgresoCircular from "../components/ProgresoCircular";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 import ModalCrearServer from "./ModalCrearServer";
@@ -133,7 +134,9 @@ const PantallaServers = () => {
         />
       )}
       <br />
-      {servers && (
+      {!servers ? (
+        <ProgresoCircular />
+      ) : (
         <>
           <ModalCrearServer onSubmit={crearServer} />
           <TableContainer component={Paper}>

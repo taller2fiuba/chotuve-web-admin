@@ -13,6 +13,7 @@ import Alert from "@material-ui/lab/Alert";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 import TablePagination from "@material-ui/core/TablePagination";
+import ProgresoCircular from "../components/ProgresoCircular";
 
 import ModalDeshabilitar from "../components/ModalDeshabilitar";
 import * as MediaServerService from "../comunications/MediaServerService";
@@ -57,7 +58,6 @@ const PantallaVideos = () => {
     ubicacion: "",
     duracion: 0,
   });
-
   const classes = useStyles();
 
   useEffect(() => {
@@ -171,7 +171,9 @@ const PantallaVideos = () => {
       </Typography>
       {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
       <br />
-      {videos && (
+      {!videos ? (
+        <ProgresoCircular />
+      ) : (
         <>
           <TableContainer component={Paper}>
             <Table className={classes.table}>

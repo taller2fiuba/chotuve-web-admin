@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
+import ProgresoCircular from "../components/ProgresoCircular";
 
 import ModalDeshabilitar from "../components/ModalDeshabilitar";
 import ModalEditarUsuario from "./ModalEditarUsuario";
@@ -45,7 +46,7 @@ const useStyles = makeStyles({
 const PantallaUsuarios = () => {
   const classes = useStyles();
 
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState(null);
   const [error, setError] = useState({
     hayError: false,
     mensaje: "",
@@ -158,14 +159,16 @@ const PantallaUsuarios = () => {
       </Typography>
       {error.hayError && <Alert severity="error">{error.mensaje}</Alert>}
       <br />
-      <TableContainer component={Paper}>
-        {usuarios && (
+      {!usuarios ? (
+        <ProgresoCircular />
+      ) : (
+        <TableContainer component={Paper}>
           <Table className={classes.table}>
             {renderTableHeaders()}
             {renderTableBody()}
           </Table>
-        )}
-      </TableContainer>
+        </TableContainer>
+      )}
     </Container>
   );
 };
