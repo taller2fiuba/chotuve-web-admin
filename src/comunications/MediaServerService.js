@@ -6,7 +6,7 @@ const CANTIDAD = 10000;
 
 const obtenerVideos = async () => {
   const response = await axios.get(`${MEDIA_SERVER_API}/video`, {
-    params: { cantidad: CANTIDAD },
+    params: { cantidad: CANTIDAD, solo_habilitados: false },
   });
   return response.data;
 };
