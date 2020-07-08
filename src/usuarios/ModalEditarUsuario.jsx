@@ -11,7 +11,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 
-import * as AuthServerService from "../../comunications/AuthServerService";
+import * as AuthServerService from "../comunications/AuthServerService";
 
 const ModalEditarUsuario = (props) => {
   // props

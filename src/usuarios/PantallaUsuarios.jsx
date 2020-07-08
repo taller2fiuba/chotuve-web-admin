@@ -13,8 +13,8 @@ import Alert from "@material-ui/lab/Alert";
 import DoneIcon from "@material-ui/icons/Done";
 import ClearIcon from "@material-ui/icons/Clear";
 
-import ModalDeshabilitarUsuario from "./ModalComponents/ModalDeshabilitar";
-import ModalEditarUsuario from "./ModalComponents/ModalEditar";
+import ModalDeshabilitar from "../components/ModalDeshabilitar";
+import ModalEditarUsuario from "./ModalEditarUsuario";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 
@@ -129,8 +129,9 @@ const PantallaUsuarios = () => {
               )}
             </StyledTableCell>
             <StyledTableCell>
-              <ModalDeshabilitarUsuario
-                cambiarEstadoUsuario={() =>
+              <ModalDeshabilitar
+                entidad="usuario"
+                cambiarEstado={() =>
                   // eslint-disable-next-line no-use-before-define
                   cambiarEstadoUsuario(usuario.id, !usuario.habilitado)
                 }
