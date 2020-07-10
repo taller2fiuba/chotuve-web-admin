@@ -18,21 +18,22 @@ const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
 
 const TablaEstadoServer = () => {
   const classes = useStyles();
-  const [servidores, setServidores] = useState([
+  const servidores = [
     { nombre: "auth-server", url: AUTH_SERVER },
     { nombre: "media-server", url: MEDIA_SERVER },
-  ]);
+  ];
+  const [apps, setApps] = useState([]);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerAppServers();
-  }, []);
+  }, [servidores]);
 
   const obtenerAppServers = async () => {
     try {
       const response = await AuthServerService.obtenerAppServers();
-      setServidores(servidores.concat(response));
+      setApps(response);
     } catch (excepcion) {
       console.log(excepcion);
     }
@@ -53,9 +54,10 @@ const TablaEstadoServer = () => {
   };
 
   const renderTableBody = () => {
+    const servers = servidores.concat(apps);
     return (
       <TableBody>
-        {servidores.map(({ nombre, url }) => (
+        {servers.map(({ nombre, url }) => (
           <FilaEstadoServer key={nombre} nombre={nombre} url={url} />
         ))}
       </TableBody>
