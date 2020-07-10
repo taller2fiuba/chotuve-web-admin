@@ -1,13 +1,8 @@
 import axios from "axios";
 
-const getPing = (url, callback) => {
-  axios
-    .get(`${url}/ping`, { handlerEnabled: false })
-    .then((response) => callback({ ping: response.status }))
-    .catch((error) => {
-      console.log(error);
-      callback({ ping: error.status });
-    });
+const ping = async (url) => {
+  const response = await axios.get(`${url}/ping`);
+  return response;
 };
 
-export default { getPing };
+export default { ping };

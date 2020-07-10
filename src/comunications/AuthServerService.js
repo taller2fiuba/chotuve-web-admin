@@ -75,7 +75,6 @@ const logout = () => {
 };
 
 export {
-  getAppServers,
   obtenerUsuarios,
   obtenerUsuario,
   editarUsuario,
