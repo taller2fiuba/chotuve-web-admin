@@ -10,9 +10,9 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
-import FondoLogin from "../assets/fondo-login.jpg";
+
+import { useStyles } from "../components/styles";
 
 import * as AuthServerService from "../comunications/AuthServerService";
 
@@ -24,39 +24,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  image: {
-    backgroundImage: `url(${FondoLogin})`,
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 const Login = () => {
   const [credenciales, setCredenciales] = useState({
@@ -96,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main" className={classes.rootLogin}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
