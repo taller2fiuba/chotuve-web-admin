@@ -13,14 +13,13 @@ import ProgresoCircular from "../components/ProgresoCircular";
 import { useStyles } from "../components/styles";
 import { StyledTableCell } from "../components/StyledTable";
 
-const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
-const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
+import { AUTH_SERVER_API, MEDIA_SERVER_API } from "../utils/constant";
 
 const TablaEstadoServer = () => {
   const classes = useStyles();
   const servidores = [
-    { nombre: "auth-server", url: AUTH_SERVER },
-    { nombre: "media-server", url: MEDIA_SERVER },
+    { nombre: "auth-server", url: AUTH_SERVER_API },
+    { nombre: "media-server", url: MEDIA_SERVER_API },
   ];
   const [apps, setApps] = useState([]);
   const [cargando, setCargando] = useState(true);

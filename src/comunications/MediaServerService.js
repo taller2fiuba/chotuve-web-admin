@@ -1,7 +1,6 @@
 import axios from "axios";
+import { MEDIA_SERVER_API } from "../utils/constant";
 
-// const MEDIA_SERVER_API = "http://localhost:27080";
-const MEDIA_SERVER_API = "https://chotuve-media-server-g4.herokuapp.com";
 const CANTIDAD = 10000;
 
 const obtenerVideos = async () => {

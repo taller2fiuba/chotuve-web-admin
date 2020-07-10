@@ -20,7 +20,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      Chotuve-Grupo5 {new Date().getFullYear()}.
+      Chotuve-Grupo4 {new Date().getFullYear()}.
     </Typography>
   );
 }
