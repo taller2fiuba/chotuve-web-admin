@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import FondoSideBar from "../assets/fondo-sidebar.jpg";
 import FondoLogin from "../assets/fondo-login.jpg";
+import LogoTexto from "../assets/logo-texto.jpeg";
 
 const drawerWidth = 240;
 
@@ -55,6 +56,16 @@ export const useStyles = makeStyles((theme) => ({
         : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
+  },
+  logo: {
+    backgroundImage: `url(${LogoTexto})`,
+    height: "30vh",
+    backgroundSize: "24vh",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[100]
+        : theme.palette.grey[900],
   },
   paper: {
     margin: theme.spacing(8, 4),

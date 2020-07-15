@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Avatar from "@material-ui/core/Avatar";
 import AppBar from "@material-ui/core/AppBar";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -11,10 +12,12 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import MenuItem from "@material-ui/core/MenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../assets/logo.png";
 import { useStyles } from "./styles";
 
 const titulos = {
@@ -115,6 +118,7 @@ const SideBarResponsive = (props) => {
           >
             <FontAwesomeIcon icon="bars" />
           </IconButton>
+          <Avatar src={Logo} className={classes.avatar} />
           <Typography variant="h6" className={classes.title}>
             {titulos[pathname]}
           </Typography>
@@ -123,6 +127,7 @@ const SideBarResponsive = (props) => {
           </Button>
         </Toolbar>
       </AppBar>
+
       <nav className={classes.drawer}>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">

@@ -11,7 +11,6 @@ import Grid from "@material-ui/core/Grid";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
-
 import { useStyles } from "../components/styles";
 
 import * as AuthServerService from "../comunications/AuthServerService";
@@ -114,7 +113,7 @@ const Login = () => {
             >
               Login
             </Button>
-            <Box mt={5}>
+            <Box mt={5} className={classes.logo}>
               <Copyright />
             </Box>
           </form>
