@@ -12,15 +12,10 @@ const addInterceptor = () => {
 
   // Manejador de Request
   const requestHandler = async (request) => {
-    console.log("LOADING_ON");
     const token = localStorage.getItem("token");
     if (isHandlerEnabled(request) && token) {
-      // request.headers['Auth'] = "Bearer " + token
-      console.log("Request interceptada");
-    } else {
-      console.log("La Request no ha sido interceptada");
+      request.headers.Authorization = `Bearer ${token}`;
     }
-
     return request;
   };
 };

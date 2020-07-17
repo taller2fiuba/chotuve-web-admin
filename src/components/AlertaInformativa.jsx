@@ -28,7 +28,7 @@ const AlertInformativa = ({ onClose, token }) => {
         <DialogContent>
           <Alert severity="info">
             <AlertTitle>Importante</AlertTitle>
-            El siguiente token de autorización se mostrará una sola vez{" "}
+            El siguiente token de autorización se mostrará una sola vez <br />
             <strong>{token}</strong>
           </Alert>
         </DialogContent>

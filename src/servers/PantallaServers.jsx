@@ -54,7 +54,7 @@ const PantallaServers = () => {
       const appServers = await AuthServerService.obtenerAppServers();
       setServers(appServers);
     } catch (exception) {
-      setError({ hayError: true, mensaje: exception.message });
+      setError({ hayError: true, mensaje: exception.response.data.mensaje });
     }
   };
 
@@ -77,7 +77,7 @@ const PantallaServers = () => {
       setUltimoServer(server);
       handleCrearResponse(response);
     } catch (exception) {
-      setError({ hayError: true, mensaje: exception.message });
+      setError({ hayError: true, mensaje: exception.response.data.mensaje });
     }
   };
 
