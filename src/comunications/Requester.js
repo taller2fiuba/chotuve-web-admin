@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getPing = (url, callback) => {
   axios
-    .get(`${url}/ping`)
+    .get(`${url}/ping`, { handlerEnabled: false })
     .then((response) => callback({ ping: response.status }))
     .catch((error) => {
       console.log(error);
