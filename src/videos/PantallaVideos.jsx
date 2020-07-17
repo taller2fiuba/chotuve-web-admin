@@ -74,7 +74,7 @@ const PantallaVideos = () => {
   const obtenerVideos = async () => {
     try {
       const videosResponse = await MediaServerService.obtenerVideos();
-      setVideos(videosResponse);
+      setVideos(videosResponse.videos);
     } catch (err) {
       setError({ hayError: true, mensaje: err.message });
     }
