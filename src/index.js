@@ -6,9 +6,11 @@ import App from "./routes/Routes";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./fontawesome";
+import addInterceptor from "./Interceptor";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
+addInterceptor();
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

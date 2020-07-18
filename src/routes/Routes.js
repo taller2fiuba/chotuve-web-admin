@@ -4,23 +4,41 @@ import Estado from "../estado/Estado";
 import SideBarResponsive from "../components/SideBarResponsive";
 import PantallaUsuarios from "../usuarios/PantallaUsuarios";
 import PantallaVideos from "../videos/PantallaVideos";
+import PantallaServers from "../servers/PantallaServers";
+import Login from "../autenticacion/Login";
+import PrivateRoute from "../autenticacion/PrivateRoute";
+import * as AuthServerService from "../comunications/AuthServerService";
 
 export default () => {
+  const handleLogout = () => {
+    AuthServerService.logout();
+    // eslint-disable-next-line no-undef
+    window.location.reload();
+  };
+
   return (
     <BrowserRouter key="router">
       <div style={{ display: "flex" }}>
-        <SideBarResponsive />
+        {AuthServerService.estaLogeado() && (
+          <SideBarResponsive handleLogout={handleLogout} />
+        )}
         <Switch>
-          <Route exact path="/" />
-          <Route exact path="/estado">
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <PrivateRoute exact path="/" />
+          <PrivateRoute exact path="/estado">
             <Estado />
-          </Route>
-          <Route exact path="/usuario">
+          </PrivateRoute>
+          <PrivateRoute exact path="/usuario">
             <PantallaUsuarios />
-          </Route>
-          <Route exact path="/video">
+          </PrivateRoute>
+          <PrivateRoute exact path="/video">
             <PantallaVideos />
-          </Route>
+          </PrivateRoute>
+          <PrivateRoute exact path="/server">
+            <PantallaServers />
+          </PrivateRoute>
           <Redirect to="/" />
         </Switch>
       </div>
