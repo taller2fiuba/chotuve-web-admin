@@ -7,6 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Box from "@material-ui/core/Box";
 
 const AlertInformativa = ({ onClose, token }) => {
   const [open, setOpen] = React.useState(true);
@@ -28,8 +29,10 @@ const AlertInformativa = ({ onClose, token }) => {
         <DialogContent>
           <Alert severity="info">
             <AlertTitle>Importante</AlertTitle>
-            El siguiente token de autorización se mostrará una sola vez <br />
-            <strong>{token}</strong>
+            El siguiente token de autorización se mostrará una sola vez: <br />
+            <Box width="50%">
+              <code>{token}</code>
+            </Box>
           </Alert>
         </DialogContent>
         <DialogActions>
