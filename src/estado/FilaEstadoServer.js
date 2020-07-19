@@ -1,34 +1,31 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import BeatLoader from "react-spinners/BeatLoader";
 import Requester from "../comunications/Requester";
 
-export default class FilaEstadoServer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      estado: false,
-      cargando: true,
-    };
+import { StyledTableCell, StyledTableRow } from "../components/StyledTable";
 
-    this.handleApiResponse = this.handleApiResponse.bind(this);
-  }
+const FilaEstadoServer = ({ nombre, url }) => {
+  const [estado, setEstado] = useState(false);
+  const [cargando, setCargando] = useState(true);
 
-  componentDidMount() {
-    this.getEstado(this.props.url);
-  }
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    obtenerEstado();
+  });
 
-  getEstado(url) {
-    Requester.getPing(url, this.handleApiResponse);
-  }
+  const obtenerEstado = async () => {
+    try {
+      const response = await Requester.ping(url);
+      setEstado(response.status === 200);
+    } catch (error) {
+      console.log(error);
+    }
+    setCargando(false);
+  };
 
-  handleApiResponse(response) {
-    this.setState({ estado: response.ping === 200, cargando: false });
-  }
-
-  render() {
-    const { estado, cargando } = this.state;
+  const renderEstado = () => {
     let valorEstado = (
       <BeatLoader size={10} margin={2} color="#298FDA" loading={cargando} />
     );
@@ -40,18 +37,21 @@ export default class FilaEstadoServer extends Component {
         <FontAwesomeIcon icon="times" size="2x" style={{ color: "red" }} />
       );
     }
+    return valorEstado;
+  };
 
-    return (
-      <tr>
-        <td>{this.props.nombre}</td>
-        <td>{valorEstado}</td>
-        <td>{this.props.url}</td>
-      </tr>
-    );
-  }
-}
+  return (
+    <StyledTableRow key={nombre}>
+      <StyledTableCell>{nombre}</StyledTableCell>
+      <StyledTableCell>{url}</StyledTableCell>
+      <StyledTableCell>{renderEstado()}</StyledTableCell>
+    </StyledTableRow>
+  );
+};
 
 FilaEstadoServer.propTypes = {
   nombre: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 };
+
+export default FilaEstadoServer;

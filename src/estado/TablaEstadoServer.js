@@ -1,61 +1,78 @@
-import React, { Component } from "react";
-import Table from "react-bootstrap/Table";
-import FilaEstadoServer from "./FilaEstadoServer";
+import React, { useState, useEffect } from "react";
+
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 import * as AuthServerService from "../comunications/AuthServerService";
+import FilaEstadoServer from "./FilaEstadoServer";
+import ProgresoCircular from "../components/ProgresoCircular";
 
-const AUTH_SERVER = "https://chotuve-auth-server-g4.herokuapp.com";
-const MEDIA_SERVER = "https://chotuve-media-server-g4.herokuapp.com";
+import { useStyles } from "../components/styles";
+import { StyledTableCell } from "../components/StyledTable";
 
-export default class TablaEstadoServer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      servers: [
-        { nombre: "auth-server", url: AUTH_SERVER },
-        { nombre: "media-server", url: MEDIA_SERVER },
-      ],
-    };
+import { AUTH_SERVER_API, MEDIA_SERVER_API } from "../utils/constant";
 
-    this.handleApiResponse = this.handleApiResponse.bind(this);
-  }
+const TablaEstadoServer = () => {
+  const classes = useStyles();
+  const servidores = [
+    { nombre: "auth-server", url: AUTH_SERVER_API },
+    { nombre: "media-server", url: MEDIA_SERVER_API },
+  ];
+  const [apps, setApps] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
-  componentDidMount() {
-    AuthServerService.getAppServers(this.handleApiResponse, (error) =>
-      console.log(error)
-    );
-  }
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    obtenerAppServers();
+  }, [servidores]);
 
-  handleApiResponse(response) {
-    const { servers } = this.state;
-    this.setState({
-      servers: servers.concat(response),
-    });
-  }
+  const obtenerAppServers = async () => {
+    try {
+      const response = await AuthServerService.obtenerAppServers();
+      setApps(response);
+    } catch (excepcion) {
+      console.log(excepcion);
+    }
+    setCargando(false);
+  };
 
-  renderEstadoServers() {
-    const { servers } = this.state;
-
-    return servers.map((server) => {
-      const { nombre, url } = server;
-
-      return <FilaEstadoServer key={nombre} nombre={nombre} url={url} />;
-    });
-  }
-
-  render() {
+  const renderTableHeaders = () => {
+    const headers = ["Servidor", "Url", "Estado"];
     return (
-      <div className="row col-8">
-        <Table striped bordered hover responsive className="text-center">
-          <thead>
-            <tr>
-              <th>Servidor</th>
-              <th>Estado</th>
-              <th>Url</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderEstadoServers()}</tbody>
-        </Table>
-      </div>
+      <TableHead>
+        <TableRow>
+          {headers.map((header) => (
+            <StyledTableCell key={header}>{header}</StyledTableCell>
+          ))}
+        </TableRow>
+      </TableHead>
     );
-  }
-}
+  };
+
+  const renderTableBody = () => {
+    const servers = servidores.concat(apps);
+    return (
+      <TableBody>
+        {servers.map(({ nombre, url }) => (
+          <FilaEstadoServer key={nombre} nombre={nombre} url={url} />
+        ))}
+      </TableBody>
+    );
+  };
+
+  return cargando ? (
+    <ProgresoCircular />
+  ) : (
+    <TableContainer component={Paper}>
+      <Table className={classes.table}>
+        {renderTableHeaders()}
+        {renderTableBody()}
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default TablaEstadoServer;
