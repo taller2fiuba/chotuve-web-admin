@@ -27,7 +27,7 @@ const TablaEstadoServer = () => {
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerAppServers();
-  }, [servidores]);
+  }, []);
 
   const obtenerAppServers = async () => {
     try {

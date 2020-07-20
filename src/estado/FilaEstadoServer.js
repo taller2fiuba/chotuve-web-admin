@@ -13,7 +13,7 @@ const FilaEstadoServer = ({ nombre, url }) => {
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
     obtenerEstado();
-  });
+  }, []);
 
   const obtenerEstado = async () => {
     try {
