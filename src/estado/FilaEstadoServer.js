@@ -12,18 +12,17 @@ const FilaEstadoServer = ({ nombre, url }) => {
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
+    const obtenerEstado = async () => {
+      try {
+        const response = await Requester.ping(url);
+        setEstado(response.status === 200);
+      } catch (error) {
+        console.log(error);
+      }
+      setCargando(false);
+    };
     obtenerEstado();
-  });
-
-  const obtenerEstado = async () => {
-    try {
-      const response = await Requester.ping(url);
-      setEstado(response.status === 200);
-    } catch (error) {
-      console.log(error);
-    }
-    setCargando(false);
-  };
+  }, [url]);
 
   const renderEstado = () => {
     let valorEstado = (
