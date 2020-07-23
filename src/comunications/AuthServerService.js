@@ -61,6 +61,14 @@ const logout = () => {
   localStorage.removeItem(TOKEN);
 };
 
+const totalUsuarios = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(465);
+    }, 1000);
+  });
+};
+
 export {
   obtenerUsuarios,
   obtenerUsuario,
@@ -72,4 +80,5 @@ export {
   login,
   estaLogeado,
   logout,
+  totalUsuarios,
 };

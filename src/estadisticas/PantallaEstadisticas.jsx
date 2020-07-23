@@ -5,6 +5,11 @@ import Paper from "@material-ui/core/Paper";
 import Logo from "../assets/logo.png";
 import MediaCard from "../components/MediaCard";
 
+import * as MediaServerService from "../comunications/MediaServerService";
+import * as AuthServerService from "../comunications/AuthServerService";
+import * as Requester from "../comunications/Requester";
+import { APP_SERVER_API } from "../utils/constant";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,24 +25,24 @@ const useStyles = makeStyles((theme) => ({
 const PantallaEstadisticas = () => {
   const classes = useStyles();
 
-  const historicoVideos = () => {
-    console.log("videos");
-    return 2365;
+  const historicoVideos = async () => {
+    const total = await MediaServerService.totalVideos();
+    return total;
   };
 
-  const historicoUsuarios = () => {
-    console.log("usuarios");
-    return 500;
+  const historicoUsuarios = async () => {
+    const total = await AuthServerService.totalUsuarios();
+    return total;
   };
 
-  const historicoReacciones = () => {
-    console.log("reacciones");
-    return 5000;
+  const historicoReacciones = async () => {
+    const total = await Requester.totalReacciones(APP_SERVER_API);
+    return total;
   };
 
-  const historicoComentarios = () => {
-    console.log("comentarios");
-    return 4362;
+  const historicoComentarios = async () => {
+    const total = await Requester.totalComentarios(APP_SERVER_API);
+    return total;
   };
 
   return (

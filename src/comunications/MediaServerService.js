@@ -32,4 +32,12 @@ const editarVideo = async (videoId, video) => {
   return response.data;
 };
 
-export { obtenerVideos, obtenerVideo, cambiarEstado, editarVideo };
+const totalVideos = async () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(1693);
+    }, 1000);
+  });
+};
+
+export { obtenerVideos, obtenerVideo, cambiarEstado, editarVideo, totalVideos };

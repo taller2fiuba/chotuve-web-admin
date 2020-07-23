@@ -31,9 +31,9 @@ const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
     obtenerSubtitulo();
   }, []);
 
-  const obtenerSubtitulo = () => {
+  const obtenerSubtitulo = async () => {
     try {
-      const total = obtenerTotal();
+      const total = await obtenerTotal();
       setSubtitulo(total);
     } catch (error) {
       setSubtitulo("-");

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import BeatLoader from "react-spinners/BeatLoader";
-import Requester from "../comunications/Requester";
+import * as Requester from "../comunications/Requester";
 
 import { StyledTableCell, StyledTableRow } from "../components/StyledTable";
 
