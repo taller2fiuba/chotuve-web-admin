@@ -6,6 +6,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 
+import BeatLoader from "react-spinners/BeatLoader";
+
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
@@ -48,7 +50,11 @@ const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
             {titulo}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {subtitulo}
+            {subtitulo == null ? (
+              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+            ) : (
+              subtitulo
+            )}
           </Typography>
         </CardContent>
       </div>
