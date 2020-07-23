@@ -20,6 +20,26 @@ const useStyles = makeStyles((theme) => ({
 const PantallaEstadisticas = () => {
   const classes = useStyles();
 
+  const historicoVideos = () => {
+    console.log("videos");
+    return 2365;
+  };
+
+  const historicoUsuarios = () => {
+    console.log("usuarios");
+    return 500;
+  };
+
+  const historicoReacciones = () => {
+    console.log("reacciones");
+    return 5000;
+  };
+
+  const historicoComentarios = () => {
+    console.log("comentarios");
+    return 4362;
+  };
+
   return (
     <div className={classes.root}>
       <Typography variant="h3" gutterBottom>
@@ -28,22 +48,46 @@ const PantallaEstadisticas = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper} variant="outlined">
-            <MediaCard titulo="Videos" subtitulo="5000" imagen={Logo} />
+            <MediaCard
+              titulo="Videos"
+              subtitulo="5000"
+              imagen={Logo}
+              colorFondo="#ffe699"
+              obtenerTotal={() => historicoVideos()}
+            />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper} variant="outlined">
-            <MediaCard titulo="Usuarios" subtitulo="465" imagen={Logo} />
+            <MediaCard
+              titulo="Usuarios"
+              subtitulo="465"
+              imagen={Logo}
+              colorFondo="#ccff99	"
+              obtenerTotal={() => historicoUsuarios()}
+            />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper} variant="outlined">
-            <MediaCard titulo="Reacciones" subtitulo="3800" imagen={Logo} />
+            <MediaCard
+              titulo="Reacciones"
+              subtitulo="3800"
+              imagen={Logo}
+              colorFondo="#cc99ff"
+              obtenerTotal={() => historicoReacciones()}
+            />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper} variant="outlined">
-            <MediaCard titulo="Comentarios" subtitulo="2000" imagen={Logo} />
+            <MediaCard
+              titulo="Comentarios"
+              subtitulo="2000"
+              imagen={Logo}
+              colorFondo="#ff9999"
+              obtenerTotal={() => historicoComentarios()}
+            />
           </Paper>
         </Grid>
         <Grid item xs={12}>

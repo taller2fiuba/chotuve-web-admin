@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -22,11 +22,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MediaCard = ({ titulo, subtitulo, imagen }) => {
+const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
   const classes = useStyles();
+  const [subtitulo, setSubtitulo] = useState(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    obtenerSubtitulo();
+  }, []);
+
+  const obtenerSubtitulo = () => {
+    try {
+      const total = obtenerTotal();
+      setSubtitulo(total);
+    } catch (error) {
+      setSubtitulo("-");
+    }
+  };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{ backgroundColor: colorFondo }}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h6" variant="h6">
@@ -44,8 +59,9 @@ const MediaCard = ({ titulo, subtitulo, imagen }) => {
 
 MediaCard.propTypes = {
   titulo: PropTypes.string.isRequired,
-  subtitulo: PropTypes.string.isRequired,
+  obtenerTotal: PropTypes.func.isRequired,
   imagen: PropTypes.node.isRequired,
+  colorFondo: PropTypes.string.isRequired,
 };
 
 export default MediaCard;
