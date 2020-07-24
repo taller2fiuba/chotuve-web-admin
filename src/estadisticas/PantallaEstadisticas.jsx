@@ -2,7 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import Logo from "../assets/logo.png";
+import VideoImagen from "../assets/videos.png";
+import UsuarioImagen from "../assets/usuarios.webp";
+import ReaccionImagen from "../assets/reacciones.png";
+import ComentarioImagen from "../assets/comentarios.png";
+
 import MediaCard from "../components/MediaCard";
 
 import * as MediaServerService from "../comunications/MediaServerService";
@@ -56,7 +60,7 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Videos"
               subtitulo="5000"
-              imagen={Logo}
+              imagen={VideoImagen}
               colorFondo="#ffe699"
               obtenerTotal={() => historicoVideos()}
             />
@@ -67,7 +71,7 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Usuarios"
               subtitulo="465"
-              imagen={Logo}
+              imagen={UsuarioImagen}
               colorFondo="#ccff99	"
               obtenerTotal={() => historicoUsuarios()}
             />
@@ -78,7 +82,7 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Reacciones"
               subtitulo="3800"
-              imagen={Logo}
+              imagen={ReaccionImagen}
               colorFondo="#cc99ff"
               obtenerTotal={() => historicoReacciones()}
             />
@@ -89,7 +93,7 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Comentarios"
               subtitulo="2000"
-              imagen={Logo}
+              imagen={ComentarioImagen}
               colorFondo="#ff9999"
               obtenerTotal={() => historicoComentarios()}
             />
