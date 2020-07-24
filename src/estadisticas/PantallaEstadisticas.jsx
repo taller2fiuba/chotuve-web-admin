@@ -1,13 +1,21 @@
-import React from "react";
+/* eslint-disable guard-for-in */
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import BeatLoader from "react-spinners/BeatLoader";
+
 import VideoImagen from "../assets/videos.png";
 import UsuarioImagen from "../assets/usuarios.webp";
 import ReaccionImagen from "../assets/reacciones.png";
 import ComentarioImagen from "../assets/comentarios.png";
 
 import MediaCard from "../components/MediaCard";
+import ResponsiveLineChart from "../components/ResponsiveLineChart";
 
 import * as MediaServerService from "../comunications/MediaServerService";
 import * as AuthServerService from "../comunications/AuthServerService";
@@ -24,10 +32,63 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     border: 0,
   },
+  chart: {
+    height: 350,
+    width: 700,
+    textAlign: "center",
+    backgroundColor: "#f0f5f5",
+  },
+  formControl: {
+    minWidth: 120,
+  },
 }));
 
 const PantallaEstadisticas = () => {
   const classes = useStyles();
+  const [escala, setEscala] = useState(7);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-use-before-define
+    obtenerEstadisticas();
+  }, [escala]);
+
+  const obtenerDatosVideos = async () => {
+    try {
+      const fechaFinal = new Date();
+      const fechaInicio = new Date();
+      fechaInicio.setDate(fechaFinal.getDate() - escala);
+      const estadisticas = await MediaServerService.obtenerEstadisticas(
+        fechaInicio.toISOString().substring(0, 10),
+        fechaFinal.toISOString().substring(0, 10)
+      );
+      // eslint-disable-next-line no-use-before-define
+      return armarDatos(estadisticas, "video", "hsl(17, 70%, 50%)");
+    } catch (error) {
+      console.log("error");
+      return [];
+    }
+  };
+
+  const armarDatos = (estadisticas, titulo, color) => {
+    const datos = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in estadisticas) {
+      datos.push({
+        x: key.substring(key.length - 2, key.length),
+        y: estadisticas[key],
+      });
+    }
+    return { id: titulo, color, data: datos };
+  };
+
+  const obtenerEstadisticas = async () => {
+    const datos = [];
+    const videos = await obtenerDatosVideos();
+    datos.push(videos);
+    setData(datos);
+  };
 
   const historicoVideos = async () => {
     const total = await MediaServerService.totalVideos();
@@ -47,6 +108,10 @@ const PantallaEstadisticas = () => {
   const historicoComentarios = async () => {
     const total = await Requester.totalComentarios(APP_SERVER_API);
     return total;
+  };
+
+  const handleChange = (event) => {
+    setEscala(event.target.value);
   };
 
   return (
@@ -99,8 +164,27 @@ const PantallaEstadisticas = () => {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>grafico videos</Paper>
+        <Grid container direction="row" item xs={12} justify="center">
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Escala</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={escala}
+              onChange={handleChange}
+            >
+              <MenuItem value={7}>Último Semana</MenuItem>
+              <MenuItem value={14}>Últimas 2 semanas</MenuItem>
+              <MenuItem value={30}>Último mes</MenuItem>
+            </Select>
+          </FormControl>
+          <Paper className={classes.chart}>
+            {data.length === 0 ? (
+              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+            ) : (
+              <ResponsiveLineChart data={data} />
+            )}
+          </Paper>
         </Grid>
       </Grid>
     </div>
