@@ -51,7 +51,6 @@ const ResponsiveLineChart = ({ data }) => (
       format: "%b %d",
       tickValues: "every 2 days",
     }}
-    enablePointLabel
     pointSymbol={CustomSymbol}
     pointSize={16}
     pointBorderWidth={1}

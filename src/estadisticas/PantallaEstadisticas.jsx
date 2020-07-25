@@ -9,11 +9,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import BeatLoader from "react-spinners/BeatLoader";
 
-import VideoImagen from "../assets/videos.png";
-import UsuarioImagen from "../assets/usuarios.webp";
-import ReaccionImagen from "../assets/reacciones.png";
-import ComentarioImagen from "../assets/comentarios.png";
-
 import MediaCard from "../components/MediaCard";
 import ResponsiveLineChart from "../components/ResponsiveLineChart";
 
@@ -126,8 +121,9 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Videos"
               subtitulo="5000"
-              imagen={VideoImagen}
-              colorFondo="#ffe699"
+              colorFondo="#003f5c"
+              icono="video_library"
+              colorIcono="#789fba"
               obtenerTotal={() => historicoVideos()}
             />
           </Paper>
@@ -137,8 +133,9 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Usuarios"
               subtitulo="465"
-              imagen={UsuarioImagen}
-              colorFondo="#ccff99	"
+              colorFondo="#463c6b"
+              icono="group"
+              colorIcono="#a498c1"
               obtenerTotal={() => historicoUsuarios()}
             />
           </Paper>
@@ -148,8 +145,9 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Reacciones"
               subtitulo="3800"
-              imagen={ReaccionImagen}
-              colorFondo="#cc99ff"
+              colorFondo="#7d2f58"
+              icono="thumb_up_alt"
+              colorIcono="#ca91ad"
               obtenerTotal={() => historicoReacciones()}
             />
           </Paper>
@@ -159,8 +157,9 @@ const PantallaEstadisticas = () => {
             <MediaCard
               titulo="Comentarios"
               subtitulo="2000"
-              imagen={ComentarioImagen}
-              colorFondo="#ff9999"
+              colorFondo="#91362a"
+              icono="chat"
+              colorIcono="#d59587"
               obtenerTotal={() => historicoComentarios()}
             />
           </Paper>

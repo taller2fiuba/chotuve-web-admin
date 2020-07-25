@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import Icon from "@material-ui/core/Icon";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 
@@ -19,12 +19,31 @@ const useStyles = makeStyles(() => ({
   content: {
     flex: "1 0 auto",
   },
+  icon: {
+    flex: "1 0 auto",
+    marginTop: "10%",
+  },
   cover: {
-    width: 151,
+    width: 120,
+    height: 80,
   },
 }));
 
-const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
+const WhiteTextTypography = withStyles({
+  root: {
+    color: "#FFFFFF",
+  },
+})(Typography);
+
+const SubtitleTypography = withStyles({
+  root: {
+    color: "#000000",
+    border: "solid",
+    backgroundColor: "#faec91",
+  },
+})(Typography);
+
+const MediaCard = ({ titulo, obtenerTotal, icono, colorFondo, colorIcono }) => {
   const classes = useStyles();
   const [subtitulo, setSubtitulo] = useState(null);
 
@@ -46,19 +65,24 @@ const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
     <Card className={classes.root} style={{ backgroundColor: colorFondo }}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h6" variant="h6">
+          <WhiteTextTypography component="h6" variant="h6">
             {titulo}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          </WhiteTextTypography>
+          <SubtitleTypography variant="subtitle1">
             {subtitulo == null ? (
-              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+              <BeatLoader size={10} margin={2} color={colorIcono} loading />
             ) : (
               subtitulo
             )}
-          </Typography>
+          </SubtitleTypography>
         </CardContent>
       </div>
-      <CardMedia className={classes.cover} image={imagen} />
+      <Icon
+        className={classes.icon}
+        style={{ color: colorIcono, fontSize: 50 }}
+      >
+        {icono}
+      </Icon>
     </Card>
   );
 };
@@ -66,8 +90,9 @@ const MediaCard = ({ titulo, obtenerTotal, imagen, colorFondo }) => {
 MediaCard.propTypes = {
   titulo: PropTypes.string.isRequired,
   obtenerTotal: PropTypes.func.isRequired,
-  imagen: PropTypes.node.isRequired,
+  icono: PropTypes.string.isRequired,
   colorFondo: PropTypes.string.isRequired,
+  colorIcono: PropTypes.string.isRequired,
 };
 
 export default MediaCard;
