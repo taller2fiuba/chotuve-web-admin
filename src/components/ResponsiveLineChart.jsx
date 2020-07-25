@@ -2,55 +2,79 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ResponsiveLine } from "@nivo/line";
 
+// const toolTipElement = (props) => {
+//   // eslint-disable-next-line react/prop-types
+//   return <div>{props.point.data.x}, {props.point.data.y}</div>;
+// };
+
+// eslint-disable-next-line react/prop-types
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
+  <g>
+    <circle
+      fill="#fff"
+      r={size / 2}
+      strokeWidth={borderWidth}
+      stroke={borderColor}
+    />
+    <circle
+      r={size / 5}
+      strokeWidth={borderWidth}
+      stroke={borderColor}
+      fill={color}
+      fillOpacity={0.35}
+    />
+  </g>
+);
+
+const commonProperties = {
+  margin: { top: 30, right: 20, bottom: 60, left: 80 },
+  animate: true,
+  enableSlices: "x",
+};
+
 const ResponsiveLineChart = ({ data }) => (
   <ResponsiveLine
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...commonProperties}
     data={data}
-    margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{ type: "point" }}
+    xScale={{
+      type: "time",
+      format: "%Y-%m-%d",
+      useUTC: false,
+      precision: "day",
+    }}
+    xFormat="time:%Y-%m-%d"
     yScale={{
       type: "linear",
-      min: "auto",
-      max: "auto",
-      stacked: true,
-      reverse: false,
     }}
-    axisTop={null}
-    axisRight={null}
     axisBottom={{
-      orient: "bottom",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
+      format: "%b %d",
+      tickValues: "every 2 days",
     }}
-    axisLeft={{
-      orient: "left",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
+    enablePointLabel
+    pointSymbol={CustomSymbol}
+    pointSize={16}
+    pointBorderWidth={1}
+    pointBorderColor={{
+      from: "color",
+      modifiers: [["darker", 0.3]],
     }}
-    colors={{ scheme: "nivo" }}
-    pointSize={10}
-    pointColor={{ theme: "background" }}
-    pointBorderWidth={2}
-    pointBorderColor={{ from: "serieColor" }}
-    pointLabel="y"
-    pointLabelYOffset={-12}
     useMesh
+    enableSlices={false}
     legends={[
       {
-        anchor: "bottom-right",
-        direction: "column",
+        anchor: "top",
+        direction: "row",
         justify: false,
-        translateX: 100,
-        translateY: 0,
-        itemsSpacing: 0,
-        itemDirection: "left-to-right",
-        itemWidth: 80,
+        translateX: 128,
+        translateY: -30,
+        itemWidth: 100,
         itemHeight: 20,
-        itemOpacity: 0.75,
-        symbolSize: 12,
+        itemsSpacing: 4,
+        symbolSize: 20,
         symbolShape: "circle",
-        symbolBorderColor: "rgba(0, 0, 0, .5)",
+        itemDirection: "left-to-right",
+        itemTextColor: "#777",
         effects: [
           {
             on: "hover",

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     width: 700,
     textAlign: "center",
     backgroundColor: "#f0f5f5",
+    padding: theme.spacing(2),
   },
   formControl: {
     minWidth: 120,
@@ -46,29 +47,13 @@ const useStyles = makeStyles((theme) => ({
 const PantallaEstadisticas = () => {
   const classes = useStyles();
   const [escala, setEscala] = useState(7);
-  const [data, setData] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
-    obtenerEstadisticas();
+    cargarEstadisticas();
   }, [escala]);
-
-  const obtenerDatosVideos = async () => {
-    try {
-      const fechaFinal = new Date();
-      const fechaInicio = new Date();
-      fechaInicio.setDate(fechaFinal.getDate() - escala);
-      const estadisticas = await MediaServerService.obtenerEstadisticas(
-        fechaInicio.toISOString().substring(0, 10),
-        fechaFinal.toISOString().substring(0, 10)
-      );
-      // eslint-disable-next-line no-use-before-define
-      return armarDatos(estadisticas, "video", "hsl(17, 70%, 50%)");
-    } catch (error) {
-      console.log("error");
-      return [];
-    }
-  };
 
   const armarDatos = (estadisticas, titulo, color) => {
     const datos = [];
@@ -76,18 +61,34 @@ const PantallaEstadisticas = () => {
     // eslint-disable-next-line no-restricted-syntax
     for (const key in estadisticas) {
       datos.push({
-        x: key.substring(key.length - 2, key.length),
+        x: key,
         y: estadisticas[key],
       });
     }
     return { id: titulo, color, data: datos };
   };
 
-  const obtenerEstadisticas = async () => {
-    const datos = [];
-    const videos = await obtenerDatosVideos();
-    datos.push(videos);
-    setData(datos);
+  const cargarEstadisticas = async () => {
+    try {
+      let datos = {};
+      const fechaFinal = new Date();
+      const fechaInicio = new Date();
+      fechaInicio.setDate(fechaFinal.getDate() - escala);
+      let estadisticas = await MediaServerService.obtenerEstadisticas(
+        fechaInicio.toISOString().substring(0, 10),
+        fechaFinal.toISOString().substring(0, 10)
+      );
+      datos = armarDatos(estadisticas, "video", "hsl(17, 70%, 50%)");
+      setVideos([datos]);
+      estadisticas = await AuthServerService.obtenerEstadisticas(
+        fechaInicio.toISOString().substring(0, 10),
+        fechaFinal.toISOString().substring(0, 10)
+      );
+      datos = armarDatos(estadisticas, "usuarios", "hsl(800, 30%, 80%)");
+      setUsuarios([datos]);
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   const historicoVideos = async () => {
@@ -164,25 +165,58 @@ const PantallaEstadisticas = () => {
             />
           </Paper>
         </Grid>
-        <Grid container direction="row" item xs={12} justify="center">
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Escala</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={escala}
-              onChange={handleChange}
-            >
-              <MenuItem value={7}>Último Semana</MenuItem>
-              <MenuItem value={14}>Últimas 2 semanas</MenuItem>
-              <MenuItem value={30}>Último mes</MenuItem>
-            </Select>
-          </FormControl>
+
+        <Grid item xs={12}>
+          <Paper className={classes.paper} variant="outlined">
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Escala</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={escala}
+                onChange={handleChange}
+              >
+                <MenuItem value={7}>Último Semana</MenuItem>
+                <MenuItem value={14}>Últimas 2 semanas</MenuItem>
+                <MenuItem value={30}>Último mes</MenuItem>
+              </Select>
+            </FormControl>
+          </Paper>
+        </Grid>
+
+        <Grid container direction="row" item xs={12} sm={6} justify="center">
           <Paper className={classes.chart}>
-            {data.length === 0 ? (
+            {videos.length === 0 ? (
               <BeatLoader size={10} margin={2} color="#298FDA" loading />
             ) : (
-              <ResponsiveLineChart data={data} />
+              <ResponsiveLineChart data={videos} />
+            )}
+          </Paper>
+        </Grid>
+        <Grid container direction="row" item xs={12} sm={6} justify="center">
+          <Paper className={classes.chart}>
+            {videos.length === 0 ? (
+              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+            ) : (
+              <ResponsiveLineChart data={usuarios} />
+            )}
+          </Paper>
+        </Grid>
+        <Grid container direction="row" item xs={12} sm={6} justify="center">
+          <Paper className={classes.chart}>
+            {videos.length === 0 ? (
+              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+            ) : (
+              <ResponsiveLineChart data={videos} />
+            )}
+          </Paper>
+        </Grid>
+        <Grid container direction="row" item xs={12} sm={6} justify="center">
+          <Paper className={classes.chart}>
+            {videos.length === 0 ? (
+              <BeatLoader size={10} margin={2} color="#298FDA" loading />
+            ) : (
+              <ResponsiveLineChart data={videos} />
             )}
           </Paper>
         </Grid>
