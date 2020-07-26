@@ -33,51 +33,15 @@ const editarVideo = async (videoId, video) => {
 };
 
 const totalVideos = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(1693);
-    }, 1000);
-  });
+  const response = await axios.get(`${MEDIA_SERVER_API}/stats/historico`);
+  return response.data.total_videos;
 };
 
 const obtenerEstadisticas = async (fechaInicio, fechaFinal) => {
-  return new Promise((resolve) => {
-    console.log(fechaInicio, fechaFinal);
-    setTimeout(() => {
-      resolve({
-        "2020-07-01": 1,
-        "2020-07-02": 3,
-        "2020-07-03": 2,
-        "2020-07-04": 1,
-        "2020-07-05": 2,
-        "2020-07-06": 3,
-        "2020-07-07": 4,
-        "2020-07-08": 1,
-        "2020-07-09": 2,
-        "2020-07-10": 2,
-        "2020-07-11": 0,
-        "2020-07-12": 3,
-        "2020-07-13": 1,
-        "2020-07-14": 3,
-        "2020-07-15": 2,
-        "2020-07-16": 1,
-        "2020-07-17": 2,
-        "2020-07-18": 3,
-        "2020-07-19": 4,
-        "2020-07-20": 1,
-        "2020-07-21": 2,
-        "2020-07-22": 2,
-        "2020-07-23": 0,
-        "2020-07-24": 1,
-        "2020-07-25": 3,
-        "2020-07-26": 2,
-        "2020-07-27": 1,
-        "2020-07-28": 2,
-        "2020-07-29": 3,
-        "2020-07-30": 4,
-      });
-    }, 1000);
+  const response = await axios.get(`${MEDIA_SERVER_API}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
   });
+  return response.data;
 };
 
 export {
