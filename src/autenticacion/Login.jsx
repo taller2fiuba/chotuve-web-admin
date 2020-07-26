@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
@@ -33,6 +34,7 @@ const Login = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const classes = useStyles();
 
@@ -51,14 +53,17 @@ const Login = () => {
 
   const handleSubmit = async () => {
     setSubmitted(true);
+    setCargando(true);
     if (credenciales.usuario && credenciales.clave) {
       try {
         await AuthServerService.login(credenciales.usuario, credenciales.clave);
         history.replace("/");
+        setCargando(false);
         // eslint-disable-next-line no-undef
         window.location.reload(false);
       } catch (excepcion) {
         setError(excepcion.response.data.error);
+        setCargando(false);
       }
     }
   };
@@ -105,15 +110,19 @@ const Login = () => {
                 submitted && !credenciales.clave && "Ingrese una clave"
               }
             />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleSubmit}
-            >
-              Login
-            </Button>
+            {!cargando ? (
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleSubmit}
+              >
+                Login
+              </Button>
+            ) : (
+              <LinearProgress />
+            )}
             <Copyright />
           </form>
         </div>
