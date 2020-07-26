@@ -32,7 +32,7 @@ const commonProperties = {
   enableSlices: "x",
 };
 
-const ResponsiveLineChart = ({ data }) => (
+const ResponsiveLineChart = ({ data, colorSchema, tick }) => (
   <ResponsiveLine
     // eslint-disable-next-line react/jsx-props-no-spreading
     {...commonProperties}
@@ -49,8 +49,9 @@ const ResponsiveLineChart = ({ data }) => (
     }}
     axisBottom={{
       format: "%b %d",
-      tickValues: "every 2 days",
+      tickValues: tick,
     }}
+    colors={{ scheme: colorSchema }}
     pointSymbol={CustomSymbol}
     pointSize={16}
     pointBorderWidth={1}
@@ -90,6 +91,8 @@ const ResponsiveLineChart = ({ data }) => (
 
 ResponsiveLineChart.propTypes = {
   data: PropTypes.node.isRequired,
+  colorSchema: PropTypes.string.isRequired,
+  tick: PropTypes.string.isRequired,
 };
 
 export default ResponsiveLineChart;

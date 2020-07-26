@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     height: 350,
     width: 700,
     textAlign: "center",
-    backgroundColor: "#f0f5f5",
     padding: theme.spacing(2),
   },
   formControl: {
@@ -73,13 +72,13 @@ const PantallaEstadisticas = () => {
         fechaInicio.toISOString().substring(0, 10),
         fechaFinal.toISOString().substring(0, 10)
       );
-      datos = armarDatos(estadisticas, "video", "hsl(17, 70%, 50%)");
+      datos = armarDatos(estadisticas, "video", "hsl(13, 70%, 50%)");
       setVideos([datos]);
       estadisticas = await AuthServerService.obtenerEstadisticas(
         fechaInicio.toISOString().substring(0, 10),
         fechaFinal.toISOString().substring(0, 10)
       );
-      datos = armarDatos(estadisticas, "usuarios", "hsl(800, 30%, 80%)");
+      datos = armarDatos(estadisticas, "usuarios", "hsl(13, 70%, 50%)");
       setUsuarios([datos]);
     } catch (error) {
       console.log("error");
@@ -184,38 +183,66 @@ const PantallaEstadisticas = () => {
         </Grid>
 
         <Grid container direction="row" item xs={12} sm={6} justify="center">
-          <Paper className={classes.chart}>
+          <Paper
+            className={classes.chart}
+            style={{ backgroundColor: "#c2e7ff" }}
+          >
             {videos.length === 0 ? (
               <BeatLoader size={10} margin={2} color="#298FDA" loading />
             ) : (
-              <ResponsiveLineChart data={videos} />
+              <ResponsiveLineChart
+                data={videos}
+                colorSchema="category10"
+                tick={`every ${Math.round(escala / 7)} days`}
+              />
             )}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
-          <Paper className={classes.chart}>
+          <Paper
+            className={classes.chart}
+            style={{ backgroundColor: "#e8ddff" }}
+          >
             {videos.length === 0 ? (
               <BeatLoader size={10} margin={2} color="#298FDA" loading />
             ) : (
-              <ResponsiveLineChart data={usuarios} />
+              <ResponsiveLineChart
+                data={usuarios}
+                colorSchema="purpleRed_green"
+                tick={`every ${Math.round(escala / 7)} days`}
+              />
             )}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
-          <Paper className={classes.chart}>
+          <Paper
+            className={classes.chart}
+            style={{ backgroundColor: "#ffd6ea" }}
+          >
             {videos.length === 0 ? (
               <BeatLoader size={10} margin={2} color="#298FDA" loading />
             ) : (
-              <ResponsiveLineChart data={videos} />
+              <ResponsiveLineChart
+                data={videos}
+                colorSchema="spectral"
+                tick={`every ${Math.round(escala / 7)} days`}
+              />
             )}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
-          <Paper className={classes.chart}>
+          <Paper
+            className={classes.chart}
+            style={{ backgroundColor: "#ffd7cd" }}
+          >
             {videos.length === 0 ? (
               <BeatLoader size={10} margin={2} color="#298FDA" loading />
             ) : (
-              <ResponsiveLineChart data={videos} />
+              <ResponsiveLineChart
+                data={videos}
+                colorSchema="set1"
+                tick={`every ${Math.round(escala / 7)} days`}
+              />
             )}
           </Paper>
         </Grid>
