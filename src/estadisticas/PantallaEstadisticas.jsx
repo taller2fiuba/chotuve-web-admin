@@ -41,12 +41,21 @@ const useStyles = makeStyles((theme) => ({
 const PantallaEstadisticas = () => {
   const classes = useStyles();
   const [escala, setEscala] = useState(7);
-  const [videos, setVideos] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
+  const [videos, setVideos] = useState(null);
+  const [usuarios, setUsuarios] = useState(null);
+  const [reacciones, setReacciones] = useState(null);
+  const [comentarios, setComentarios] = useState(null);
 
   useEffect(() => {
+    const fechaFinal = new Date();
+    const fechaInicio = new Date();
+    fechaInicio.setDate(fechaFinal.getDate() - escala);
     // eslint-disable-next-line no-use-before-define
-    cargarEstadisticas();
+    cargarVideos(fechaInicio, fechaFinal);
+    // eslint-disable-next-line no-use-before-define
+    cargarUsuarios(fechaInicio, fechaFinal);
+    // eslint-disable-next-line no-use-before-define
+    cargarReaccionesYComentarios(fechaInicio, fechaFinal);
   }, [escala]);
 
   const armarDatos = (estadisticas, titulo, color) => {
@@ -62,26 +71,48 @@ const PantallaEstadisticas = () => {
     return { id: titulo, color, data: datos };
   };
 
-  const cargarEstadisticas = async () => {
+  const cargarVideos = async (fechaInicio, fechaFinal) => {
     try {
-      let datos = {};
-      const fechaFinal = new Date();
-      const fechaInicio = new Date();
-      fechaInicio.setDate(fechaFinal.getDate() - escala);
-      let estadisticas = await MediaServerService.obtenerEstadisticas(
+      const estadisticas = await MediaServerService.obtenerEstadisticas(
         fechaInicio.toISOString().substring(0, 10),
         fechaFinal.toISOString().substring(0, 10)
       );
-      datos = armarDatos(estadisticas, "video", "hsl(13, 70%, 50%)");
+      const datos = armarDatos(estadisticas, "Videos", "hsl(13, 70%, 50%)");
       setVideos([datos]);
-      estadisticas = await AuthServerService.obtenerEstadisticas(
+    } catch (error) {
+      console.log("error videos");
+      setVideos([]);
+    }
+  };
+
+  const cargarUsuarios = async (fechaInicio, fechaFinal) => {
+    try {
+      const estadisticas = await AuthServerService.obtenerEstadisticas(
         fechaInicio.toISOString().substring(0, 10),
         fechaFinal.toISOString().substring(0, 10)
       );
-      datos = armarDatos(estadisticas, "usuarios", "hsl(13, 70%, 50%)");
+      const datos = armarDatos(estadisticas, "Usuarios", "hsl(13, 70%, 50%)");
       setUsuarios([datos]);
     } catch (error) {
-      console.log("error");
+      console.log("error usuarios");
+      setUsuarios([]);
+    }
+  };
+
+  const cargarReaccionesYComentarios = async (fechaInicio, fechaFinal) => {
+    try {
+      // TODO: USAR REQUESTER
+      const estadisticas = await AuthServerService.obtenerEstadisticas(
+        fechaInicio.toISOString().substring(0, 10),
+        fechaFinal.toISOString().substring(0, 10)
+      );
+      let datos = armarDatos(estadisticas, "Comentarios", "hsl(13, 70%, 50%)");
+      setComentarios([datos]);
+      datos = armarDatos(estadisticas, "Reacciones", "hsl(13, 70%, 50%)");
+      setReacciones([datos]);
+    } catch (error) {
+      console.log("error usuarios");
+      setUsuarios([]);
     }
   };
 
@@ -107,6 +138,24 @@ const PantallaEstadisticas = () => {
 
   const handleChange = (event) => {
     setEscala(event.target.value);
+  };
+
+  const mostrarGrafico = (datos, colorSchema) => {
+    let result = <BeatLoader size={10} margin={2} color="#298FDA" loading />;
+    if (datos !== null) {
+      if (datos.length === 0) {
+        result = <div>No se pudo cargar</div>;
+      } else if (datos.length > 0) {
+        result = (
+          <ResponsiveLineChart
+            data={datos}
+            colorSchema={colorSchema}
+            tick={`every ${Math.round(escala / 7)} days`}
+          />
+        );
+      }
+    }
+    return result;
   };
 
   return (
@@ -187,15 +236,7 @@ const PantallaEstadisticas = () => {
             className={classes.chart}
             style={{ backgroundColor: "#c2e7ff" }}
           >
-            {videos.length === 0 ? (
-              <BeatLoader size={10} margin={2} color="#298FDA" loading />
-            ) : (
-              <ResponsiveLineChart
-                data={videos}
-                colorSchema="category10"
-                tick={`every ${Math.round(escala / 7)} days`}
-              />
-            )}
+            {mostrarGrafico(videos, "category10")}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
@@ -203,15 +244,7 @@ const PantallaEstadisticas = () => {
             className={classes.chart}
             style={{ backgroundColor: "#e8ddff" }}
           >
-            {videos.length === 0 ? (
-              <BeatLoader size={10} margin={2} color="#298FDA" loading />
-            ) : (
-              <ResponsiveLineChart
-                data={usuarios}
-                colorSchema="purpleRed_green"
-                tick={`every ${Math.round(escala / 7)} days`}
-              />
-            )}
+            {mostrarGrafico(usuarios, "purpleRed_green")}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
@@ -219,15 +252,7 @@ const PantallaEstadisticas = () => {
             className={classes.chart}
             style={{ backgroundColor: "#ffd6ea" }}
           >
-            {videos.length === 0 ? (
-              <BeatLoader size={10} margin={2} color="#298FDA" loading />
-            ) : (
-              <ResponsiveLineChart
-                data={videos}
-                colorSchema="spectral"
-                tick={`every ${Math.round(escala / 7)} days`}
-              />
-            )}
+            {mostrarGrafico(reacciones, "spectral")}
           </Paper>
         </Grid>
         <Grid container direction="row" item xs={12} sm={6} justify="center">
@@ -235,15 +260,7 @@ const PantallaEstadisticas = () => {
             className={classes.chart}
             style={{ backgroundColor: "#ffd7cd" }}
           >
-            {videos.length === 0 ? (
-              <BeatLoader size={10} margin={2} color="#298FDA" loading />
-            ) : (
-              <ResponsiveLineChart
-                data={videos}
-                colorSchema="set1"
-                tick={`every ${Math.round(escala / 7)} days`}
-              />
-            )}
+            {mostrarGrafico(comentarios, "set1")}
           </Paper>
         </Grid>
       </Grid>
