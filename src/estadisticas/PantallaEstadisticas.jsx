@@ -46,18 +46,6 @@ const PantallaEstadisticas = () => {
   const [reacciones, setReacciones] = useState(null);
   const [comentarios, setComentarios] = useState(null);
 
-  useEffect(() => {
-    const fechaFinal = new Date();
-    const fechaInicio = new Date();
-    fechaInicio.setDate(fechaFinal.getDate() - escala);
-    // eslint-disable-next-line no-use-before-define
-    cargarVideos(fechaInicio, fechaFinal);
-    // eslint-disable-next-line no-use-before-define
-    cargarUsuarios(fechaInicio, fechaFinal);
-    // eslint-disable-next-line no-use-before-define
-    cargarReaccionesYComentarios(fechaInicio, fechaFinal);
-  }, [escala]);
-
   const armarDatos = (estadisticas, titulo, color) => {
     const datos = [];
 
@@ -71,58 +59,67 @@ const PantallaEstadisticas = () => {
     return { id: titulo, color, data: datos.sort((a, b) => (a.x <= b.x) * -1) };
   };
 
-  const cargarVideos = async (fechaInicio, fechaFinal) => {
-    try {
-      const estadisticas = await MediaServerService.obtenerEstadisticas(
-        fechaInicio.toISOString().substring(0, 10),
-        fechaFinal.toISOString().substring(0, 10)
-      );
-      const datos = armarDatos(estadisticas, "Videos", "hsl(13, 70%, 50%)");
-      setVideos([datos]);
-    } catch (error) {
-      console.log("error videos");
-      setVideos([]);
-    }
-  };
+  useEffect(() => {
+    const cargarVideos = async (fechaInicio, fechaFinal) => {
+      try {
+        const estadisticas = await MediaServerService.obtenerEstadisticas(
+          fechaInicio.toISOString().substring(0, 10),
+          fechaFinal.toISOString().substring(0, 10)
+        );
+        const datos = armarDatos(estadisticas, "Videos", "hsl(13, 70%, 50%)");
+        setVideos([datos]);
+      } catch (error) {
+        console.log("error videos");
+        setVideos([]);
+      }
+    };
 
-  const cargarUsuarios = async (fechaInicio, fechaFinal) => {
-    try {
-      const estadisticas = await AuthServerService.obtenerEstadisticas(
-        fechaInicio.toISOString().substring(0, 10),
-        fechaFinal.toISOString().substring(0, 10)
-      );
-      const datos = armarDatos(estadisticas, "Usuarios", "hsl(13, 70%, 50%)");
-      setUsuarios([datos]);
-    } catch (error) {
-      console.log("error usuarios");
-      setUsuarios([]);
-    }
-  };
+    const cargarUsuarios = async (fechaInicio, fechaFinal) => {
+      try {
+        const estadisticas = await AuthServerService.obtenerEstadisticas(
+          fechaInicio.toISOString().substring(0, 10),
+          fechaFinal.toISOString().substring(0, 10)
+        );
+        const datos = armarDatos(estadisticas, "Usuarios", "hsl(13, 70%, 50%)");
+        setUsuarios([datos]);
+      } catch (error) {
+        console.log("error usuarios");
+        setUsuarios([]);
+      }
+    };
 
-  const cargarReaccionesYComentarios = async (fechaInicio, fechaFinal) => {
-    try {
-      const estadisticas = await Requester.obtenerEstadisticas(
-        APP_SERVER_API,
-        fechaInicio.toISOString().substring(0, 10),
-        fechaFinal.toISOString().substring(0, 10)
-      );
-      let datos = armarDatos(
-        estadisticas.comentarios,
-        "Comentarios",
-        "hsl(13, 70%, 50%)"
-      );
-      setComentarios([datos]);
-      datos = armarDatos(
-        estadisticas.reacciones,
-        "Reacciones",
-        "hsl(13, 70%, 50%)"
-      );
-      setReacciones([datos]);
-    } catch (error) {
-      console.log("error usuarios");
-      setUsuarios([]);
-    }
-  };
+    const cargarReaccionesYComentarios = async (fechaInicio, fechaFinal) => {
+      try {
+        const estadisticas = await Requester.obtenerEstadisticas(
+          APP_SERVER_API,
+          fechaInicio.toISOString().substring(0, 10),
+          fechaFinal.toISOString().substring(0, 10)
+        );
+        let datos = armarDatos(
+          estadisticas.comentarios,
+          "Comentarios",
+          "hsl(13, 70%, 50%)"
+        );
+        setComentarios([datos]);
+        datos = armarDatos(
+          estadisticas.reacciones,
+          "Reacciones",
+          "hsl(13, 70%, 50%)"
+        );
+        setReacciones([datos]);
+      } catch (error) {
+        console.log("error usuarios");
+        setUsuarios([]);
+      }
+    };
+
+    const fechaFinal = new Date();
+    const fechaInicio = new Date();
+    fechaInicio.setDate(fechaFinal.getDate() - escala);
+    cargarVideos(fechaInicio, fechaFinal);
+    cargarUsuarios(fechaInicio, fechaFinal);
+    cargarReaccionesYComentarios(fechaInicio, fechaFinal);
+  }, [escala]);
 
   const historicoVideos = async () => {
     const total = await MediaServerService.totalVideos();
