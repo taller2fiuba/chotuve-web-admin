@@ -61,6 +61,18 @@ const logout = () => {
   localStorage.removeItem(TOKEN);
 };
 
+const totalUsuarios = async () => {
+  const response = await axios.get(`${AUTH_SERVER_API}/stats/historico`);
+  return response.data.total_usuarios;
+};
+const obtenerEstadisticas = async (fechaInicio, fechaFinal) => {
+  const response = await axios.get(`${AUTH_SERVER_API}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
+  });
+
+  return response.data.usuarios;
+};
+
 export {
   obtenerUsuarios,
   obtenerUsuario,
@@ -72,4 +84,6 @@ export {
   login,
   estaLogeado,
   logout,
+  totalUsuarios,
+  obtenerEstadisticas,
 };

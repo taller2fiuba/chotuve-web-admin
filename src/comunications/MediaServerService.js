@@ -32,4 +32,23 @@ const editarVideo = async (videoId, video) => {
   return response.data;
 };
 
-export { obtenerVideos, obtenerVideo, cambiarEstado, editarVideo };
+const totalVideos = async () => {
+  const response = await axios.get(`${MEDIA_SERVER_API}/stats/historico`);
+  return response.data.total_videos;
+};
+
+const obtenerEstadisticas = async (fechaInicio, fechaFinal) => {
+  const response = await axios.get(`${MEDIA_SERVER_API}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
+  });
+  return response.data;
+};
+
+export {
+  obtenerVideos,
+  obtenerVideo,
+  cambiarEstado,
+  editarVideo,
+  totalVideos,
+  obtenerEstadisticas,
+};

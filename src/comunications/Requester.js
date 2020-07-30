@@ -5,4 +5,23 @@ const ping = async (url) => {
   return response;
 };
 
-export default { ping };
+// eslint-disable-next-line no-unused-vars
+const totalReacciones = async (url) => {
+  const response = await axios.get(`${url}/stats/historico`);
+  return response.data.total_reacciones;
+};
+
+// eslint-disable-next-line no-unused-vars
+const totalComentarios = async (url) => {
+  const response = await axios.get(`${url}/stats/historico`);
+  return response.data.total_comentarios;
+};
+
+const obtenerEstadisticas = async (url, fechaInicio, fechaFinal) => {
+  const response = await axios.get(`${url}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
+  });
+  return response.data;
+};
+
+export { ping, totalReacciones, totalComentarios, obtenerEstadisticas };
