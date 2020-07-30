@@ -68,7 +68,7 @@ const PantallaEstadisticas = () => {
         y: estadisticas[key],
       });
     }
-    return { id: titulo, color, data: datos };
+    return { id: titulo, color, data: datos.sort((a, b) => (a.x <= b.x) * -1) };
   };
 
   const cargarVideos = async (fechaInicio, fechaFinal) => {

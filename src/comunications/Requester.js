@@ -21,7 +21,6 @@ const obtenerEstadisticas = async (url, fechaInicio, fechaFinal) => {
   const response = await axios.get(`${url}/stats`, {
     params: { inicio: fechaInicio, fin: fechaFinal },
   });
-  console.log(response.data);
   return response.data;
 };
 
