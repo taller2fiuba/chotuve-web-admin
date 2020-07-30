@@ -2,11 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ResponsiveLine } from "@nivo/line";
 
-// const toolTipElement = (props) => {
-//   // eslint-disable-next-line react/prop-types
-//   return <div>{props.point.data.x}, {props.point.data.y}</div>;
-// };
-
 // eslint-disable-next-line react/prop-types
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   <g>
@@ -26,7 +21,7 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   </g>
 );
 
-const commonProperties = {
+const generalProperties = {
   margin: { top: 30, right: 20, bottom: 60, left: 80 },
   animate: true,
   enableSlices: "x",
@@ -35,7 +30,7 @@ const commonProperties = {
 const ResponsiveLineChart = ({ data, colorSchema, tick }) => (
   <ResponsiveLine
     // eslint-disable-next-line react/jsx-props-no-spreading
-    {...commonProperties}
+    {...generalProperties}
     data={data}
     xScale={{
       type: "time",
