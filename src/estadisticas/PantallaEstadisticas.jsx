@@ -101,14 +101,22 @@ const PantallaEstadisticas = () => {
 
   const cargarReaccionesYComentarios = async (fechaInicio, fechaFinal) => {
     try {
-      // TODO: USAR REQUESTER
-      const estadisticas = await AuthServerService.obtenerEstadisticas(
+      const estadisticas = await Requester.obtenerEstadisticas(
+        APP_SERVER_API,
         fechaInicio.toISOString().substring(0, 10),
         fechaFinal.toISOString().substring(0, 10)
       );
-      let datos = armarDatos(estadisticas, "Comentarios", "hsl(13, 70%, 50%)");
+      let datos = armarDatos(
+        estadisticas.comentarios,
+        "Comentarios",
+        "hsl(13, 70%, 50%)"
+      );
       setComentarios([datos]);
-      datos = armarDatos(estadisticas, "Reacciones", "hsl(13, 70%, 50%)");
+      datos = armarDatos(
+        estadisticas.reacciones,
+        "Reacciones",
+        "hsl(13, 70%, 50%)"
+      );
       setReacciones([datos]);
     } catch (error) {
       console.log("error usuarios");
@@ -223,7 +231,7 @@ const PantallaEstadisticas = () => {
                 value={escala}
                 onChange={handleChange}
               >
-                <MenuItem value={7}>Último Semana</MenuItem>
+                <MenuItem value={7}>Última Semana</MenuItem>
                 <MenuItem value={14}>Últimas 2 semanas</MenuItem>
                 <MenuItem value={30}>Último mes</MenuItem>
               </Select>

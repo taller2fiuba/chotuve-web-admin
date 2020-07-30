@@ -7,20 +7,22 @@ const ping = async (url) => {
 
 // eslint-disable-next-line no-unused-vars
 const totalReacciones = async (url) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(3265);
-    }, 1000);
-  });
+  const response = await axios.get(`${url}/stats/historico`);
+  return response.data.total_reacciones;
 };
 
 // eslint-disable-next-line no-unused-vars
 const totalComentarios = async (url) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(2832);
-    }, 1000);
-  });
+  const response = await axios.get(`${url}/stats/historico`);
+  return response.data.total_comentarios;
 };
 
-export { ping, totalReacciones, totalComentarios };
+const obtenerEstadisticas = async (url, fechaInicio, fechaFinal) => {
+  const response = await axios.get(`${url}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
+  });
+  console.log(response.data);
+  return response.data;
+};
+
+export { ping, totalReacciones, totalComentarios, obtenerEstadisticas };
