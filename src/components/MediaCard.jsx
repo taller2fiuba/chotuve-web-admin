@@ -47,11 +47,6 @@ const MediaCard = ({ titulo, obtenerTotal, icono, colorFondo, colorIcono }) => {
   const classes = useStyles();
   const [subtitulo, setSubtitulo] = useState(null);
 
-  useEffect(() => {
-    // eslint-disable-next-line no-use-before-define
-    obtenerSubtitulo();
-  }, []);
-
   const obtenerSubtitulo = async () => {
     try {
       const total = await obtenerTotal();
@@ -60,6 +55,8 @@ const MediaCard = ({ titulo, obtenerTotal, icono, colorFondo, colorIcono }) => {
       setSubtitulo("-");
     }
   };
+
+  useEffect(obtenerSubtitulo, []);
 
   return (
     <Card className={classes.root} style={{ backgroundColor: colorFondo }}>
