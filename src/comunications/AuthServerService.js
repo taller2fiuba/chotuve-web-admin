@@ -62,33 +62,15 @@ const logout = () => {
 };
 
 const totalUsuarios = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(465);
-    }, 1000);
-  });
+  const response = await axios.get(`${AUTH_SERVER_API}/stats/historico`);
+  return response.data.total_usuarios;
 };
 const obtenerEstadisticas = async (fechaInicio, fechaFinal) => {
-  return new Promise((resolve) => {
-    console.log(fechaInicio, fechaFinal);
-    setTimeout(() => {
-      resolve({
-        "2020-07-12": 3,
-        "2020-07-13": 1,
-        "2020-07-14": 3,
-        "2020-07-15": 2,
-        "2020-07-16": 1,
-        "2020-07-17": 2,
-        "2020-07-18": 3,
-        "2020-07-19": 4,
-        "2020-07-20": 1,
-        "2020-07-21": 2,
-        "2020-07-22": 2,
-        "2020-07-23": 0,
-        "2020-07-24": 1,
-      });
-    }, 1000);
+  const response = await axios.get(`${AUTH_SERVER_API}/stats`, {
+    params: { inicio: fechaInicio, fin: fechaFinal },
   });
+
+  return response.data.usuarios;
 };
 
 export {
