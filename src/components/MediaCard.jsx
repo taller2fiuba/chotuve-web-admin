@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -56,7 +56,7 @@ const MediaCard = ({ titulo, obtenerTotal, icono, colorFondo, colorIcono }) => {
     }
   };
 
-  useEffect(obtenerSubtitulo, []);
+  obtenerSubtitulo();
 
   return (
     <Card className={classes.root} style={{ backgroundColor: colorFondo }}>

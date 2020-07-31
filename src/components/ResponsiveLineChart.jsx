@@ -85,7 +85,8 @@ const ResponsiveLineChart = ({ data, colorSchema, tick }) => (
 );
 
 ResponsiveLineChart.propTypes = {
-  data: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
   colorSchema: PropTypes.string.isRequired,
   tick: PropTypes.string.isRequired,
 };

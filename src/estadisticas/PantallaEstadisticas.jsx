@@ -9,8 +9,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import BeatLoader from "react-spinners/BeatLoader";
 
-import MediaCard from "../components/MediaCard";
 import ResponsiveLineChart from "../components/ResponsiveLineChart";
+import MediaCard from "../components/MediaCard";
 
 import * as MediaServerService from "../comunications/MediaServerService";
 import * as AuthServerService from "../comunications/AuthServerService";

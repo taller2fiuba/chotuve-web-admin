@@ -55,7 +55,7 @@ const SideBarResponsive = (props) => {
           <ListItemIcon>
             <FontAwesomeIcon icon="home" className={classes.MenuItem} />
           </ListItemIcon>
-          <ListItemText primary="Home" />
+          <ListItemText primary="Home" className={classes.MenuItem} />
         </MenuItem>
         <MenuItem
           component={Link}
@@ -66,7 +66,7 @@ const SideBarResponsive = (props) => {
           <ListItemIcon>
             <FontAwesomeIcon icon="chart-bar" className={classes.MenuItem} />
           </ListItemIcon>
-          <ListItemText primary="Estado" />
+          <ListItemText primary="Estado" className={classes.MenuItem} />
         </MenuItem>
         <MenuItem
           component={Link}
@@ -77,7 +77,7 @@ const SideBarResponsive = (props) => {
           <ListItemIcon>
             <FontAwesomeIcon icon="user" className={classes.MenuItem} />
           </ListItemIcon>
-          <ListItemText primary="Usuarios" />
+          <ListItemText primary="Usuarios" className={classes.MenuItem} />
         </MenuItem>
         <MenuItem
           component={Link}
@@ -88,7 +88,7 @@ const SideBarResponsive = (props) => {
           <ListItemIcon>
             <FontAwesomeIcon icon="file-video" className={classes.MenuItem} />
           </ListItemIcon>
-          <ListItemText primary="Videos" />
+          <ListItemText primary="Videos" className={classes.MenuItem} />
         </MenuItem>
         <MenuItem
           component={Link}
@@ -99,7 +99,7 @@ const SideBarResponsive = (props) => {
           <ListItemIcon>
             <FontAwesomeIcon icon="server" className={classes.MenuItem} />
           </ListItemIcon>
-          <ListItemText primary="Servers" />
+          <ListItemText primary="Servers" className={classes.MenuItem} />
         </MenuItem>
       </MenuList>
     </div>
